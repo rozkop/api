@@ -1,14 +1,8 @@
 in progress...
 
-For start
+## For starting up the project run:
+
 ```shell script
-alias sail="./vendor/bin/sail"
+sh startup.sh
 ```
-Copy env file
-```shell script
-cp .env.example .env
-```
-Then for setting up container
-```shell script
-docker compose up -d
-```
+*Remember ```startup.sh``` has to have permisson to execute.*
