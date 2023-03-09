@@ -10,6 +10,5 @@ docker run --rm \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
  
-alias sail="./vendor/bin/sail"
 sail up -d
 sail php artisan key:generate
