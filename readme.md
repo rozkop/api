@@ -6,5 +6,5 @@ alias sail="./vendor/bin/sail"
 ```
 Then for setting up container
 ```shell script
-sail up -d
+docker compose up -d
 ```
