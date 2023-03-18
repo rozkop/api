@@ -31,12 +31,11 @@ class PostController extends Controller
            'text' => 'nullable',
         ]);
 
-        $post = Post::create([
+        return Post::create([
             'title' => $request['title'],
             'text' => $request['text'],
             'user_id' => $user_id
         ]);
-        return $post;
     }
 
     /**
@@ -57,7 +56,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): PostResource
     {
         $user_id = Auth::id();
 
