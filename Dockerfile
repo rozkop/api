@@ -42,5 +42,5 @@ COPY --chown=www:www . /var/www
 USER www
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 80
+EXPOSE 80/tcp
 ENTRYPOINT /usr/sbin/php-fpm --nodaemonize
