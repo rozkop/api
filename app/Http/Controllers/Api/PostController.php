@@ -22,7 +22,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Post
+    public function store(Request $request)
     {
         $user_id = Auth::id();
 
@@ -31,11 +31,13 @@ class PostController extends Controller
            'text' => 'nullable',
         ]);
 
-        return Post::create([
+        $post = Post::create([
             'title' => $request['title'],
             'text' => $request['text'],
             'user_id' => $user_id
         ]);
+
+        return PostResource::make($post);
     }
 
     /**
@@ -78,7 +80,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): void
+    public function destroy(string $id)
     {
         $user_id = Auth::id();
         $post = Post::where('user_id', $user_id)->where('id', $id);
