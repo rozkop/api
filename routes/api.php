@@ -22,8 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Auth routes
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/login', [AuthController::class, 'login']);
 
 
 // Public routes
@@ -32,7 +31,10 @@ Route::get('/user/{username}/comments/{id}/{slug}', [PostController::class, 'sho
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+
     Route::post('/submit', [PostController::class, 'store']);
     Route::put('/edit/{id}', [PostController::class, 'update']);
     Route::delete('/delete/{id}', [PostController::class, 'destroy']);
 });
+
