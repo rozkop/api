@@ -37,4 +37,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/edit/{id}', [PostController::class, 'update']);
     Route::delete('/delete/{id}', [PostController::class, 'destroy']);
 });
-
