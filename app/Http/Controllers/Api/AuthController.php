@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function register(Request $request) {
+       
         $fields = $request->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required|string|unique:users,name',
@@ -19,7 +20,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => $fields['password'],
+            'password' => bcrypt($fields['password']),
         ]);
 
         $token = $user->createToken('rozkop')->plainTextToken;
@@ -33,6 +34,7 @@ class AuthController extends Controller
     }
 
     public function login(Request $request) {
+        
         $fields = $request->validate([
            'email' => 'required|email',
            'password' => 'required|string'
