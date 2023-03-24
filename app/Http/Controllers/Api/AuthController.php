@@ -3,63 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Resources\BaseResource;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
-        $fields = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required|string|unique:users,name',
-            'password' => 'required|min:8|confirmed'
-        ]);
+    public function register(RegisterUserRequest $request, AuthService $service)
+    {
+        $response = $service->registerUser(
+            $request->email,
+            $request->name,
+            $request->password
+        );
 
-        $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => $fields['password'],
-        ]);
-
-        $token = $user->createToken('rozkop')->plainTextToken;
-
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response, 201);
+        return $response;
     }
 
-    public function login(Request $request) {
-        $fields = $request->validate([
-           'email' => 'required|email',
-           'password' => 'required|string'
-        ]);
+    public function login(LoginUserRequest $request, AuthService $service)
+    {
+        $response = $service->loginUser(
+            $request->email,
+            $request->password
+        );
 
-        $user = User::where('email', $fields['email'])->first();
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
-                'Invalid email or password!'
-            ], 401);
-        }
-
-        $token = $user->createToken('rozkop')->plainTextToken;
-
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response, 201);
+        return $response;
     }
 
-    public function logout() {
-        auth()->user()->tokens()->delete();
+    public function logout()
+    {
+        auth('sanctum')->user()->tokens()->delete();
 
-        return [
-            'message' => 'Logged out'
-        ];
+        return BaseResource::make(['message' => 'Logged out!']);
     }
 }

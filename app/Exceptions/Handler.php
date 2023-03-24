@@ -42,10 +42,7 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->renderable(function (Throwable $e) {
-            return response()->json([
-                'message' => "Not found",
-                'documentation' => "https://rozkop.github.io/docs/"
-            ], 404);
+            //
         });
     }
 }
