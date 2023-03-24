@@ -12,6 +12,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            UserInfo::create([
+                'user_id' => $user->id,
+                'gender' => null,
+                'country' => null
+            ]);
+        });
+    }
+
     protected $fillable = ['name', 'email', 'password'];
 
     protected $hidden = ['password', 'remember_token'];
