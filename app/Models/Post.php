@@ -11,11 +11,24 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'slug', 'text'];
+    protected $fillable = [
+        'user_id', 
+        'community_id', 
+        'title', 
+        'slug', 
+        'text'];
 
     protected static function booted() {
         static::creating(function ($post) {
             $post->slug = Str::slug($post->title);
         });
+    }
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

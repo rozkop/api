@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Community;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class PostFactory extends Factory
             'title' => $this->faker->text(15),
             'text' => $this->faker->sentence(50),
             'user_id' => User::factory(),
+            'community_id' => Community::factory(),
         ];
     }
 }
