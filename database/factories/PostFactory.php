@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->text(15),
             'text' => $this->faker->sentence(50),
-            'user_id' => User::factory(), 
+            'user_id' => User::factory(),
         ];
     }
 }
