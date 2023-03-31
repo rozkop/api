@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
-use App\Models\Community;
+use App\Models\Post;
 
 return new class extends Migration
 {
@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Community::class)->cascadeOnDelete();
-            $table->string('title');
-            $table->string('slug');
+            $table->foreignIdFor(User::class)->cascadeOnDelete();
+            $table->foreignIdFor(Post::class)->cascadeOnDelete();
             $table->longText('text')->nullable();
             $table->integer('upvotes');
             $table->integer('downvotes');
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('comments');
     }
 };

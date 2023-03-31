@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Community;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Post;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
  */
-class PostFactory extends Factory
+class CommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,12 +19,11 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->text(15),
-            'text' => $this->faker->sentence(50),
-            'user_id' => User::factory(),
+            'text'=>$this->faker->text(20),
+            'user_id'=>User::factory(),
+            'post_id'=>Post::factory(),
             'upvotes'=> $this->faker->numberBetween(10, 150),
             'downvotes'=> $this->faker->numberBetween(10, 150),
-            'community_id' => Community::factory(),
         ];
     }
 }
