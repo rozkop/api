@@ -14,7 +14,7 @@ class PostService
         $post = Post::create([
             'title' => $title,
             'text' => $text,
-            'user_id' => $user_id
+            'user_id' => $user_id,
         ]);
 
         return PostResource::make($post);
@@ -35,7 +35,7 @@ class PostService
         $post->update([
             'title' => $title,
             'text' => $text,
-            'user_id' => $user_id
+            'user_id' => $user_id,
         ]);
 
         return PostResource::make($post);

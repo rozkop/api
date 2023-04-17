@@ -11,7 +11,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'post_id',
         'text',
         'upvotes',
@@ -19,15 +19,18 @@ class Comment extends Model
         'rating',
     ];
 
-    public static function ratingUpdate(){
+    public static function ratingUpdate()
+    {
         static::creating(function ($comment) {
             $comment->rating = $comment->upvotes - $comment->downvotes;
         });
     }
+
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

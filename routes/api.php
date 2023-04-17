@@ -19,7 +19,6 @@ Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
 Route::get('/post/{id}/', [PostController::class, 'show']);
 
-
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Auth route
@@ -33,4 +32,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // User profile actions
     Route::apiResource('/settings', UserProfileController::class);
 });
-

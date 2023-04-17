@@ -8,15 +8,14 @@ class LoginUserRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return !auth('sanctum')->check();
+        return ! auth('sanctum')->check();
     }
 
     public function rules(): array
     {
         return [
             'email' => ['required', 'email'],
-            'password' => ['required', 'string']
+            'password' => ['required', 'string'],
         ];
     }
 }
-

@@ -13,37 +13,42 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 
-        'community_id', 
-        'title', 
-        'slug', 
+        'user_id',
+        'community_id',
+        'title',
+        'slug',
         'text',
         'upvotes',
         'downvotes',
         'rating',
     ];
 
-    protected static function booted() {
+    protected static function booted()
+    {
         static::creating(function ($post) {
             $post->slug = Str::slug($post->title);
         });
     }
-    public static function ratingUpdate(){
+
+    public static function ratingUpdate()
+    {
         static::creating(function ($post) {
             $post->rating = $post->upvotes - $post->downvotes;
         });
     }
+
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
-
 }

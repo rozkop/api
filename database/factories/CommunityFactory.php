@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +17,9 @@ class CommunityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this -> faker ->unique()-> text(10),
-            'description' => $this -> faker -> sentence(20),
-            
+            'name' => $this->faker->unique()->text(10),
+            'description' => $this->faker->sentence(20),
+
         ];
     }
 }

@@ -33,4 +33,3 @@ class UserProfileController extends Controller
         return BaseResource::make(['message' => 'Profile deleted successfully!']);
     }
 }
-
