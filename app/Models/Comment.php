@@ -16,9 +16,14 @@ class Comment extends Model
         'text',
         'upvotes',
         'downvotes',
+        'rating',
     ];
 
-
+    public static function ratingUpdate(){
+        static::creating(function ($comment) {
+            $comment->rating = $comment->upvotes - $comment->downvotes;
+        });
+    }
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);

@@ -15,8 +15,9 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Public routes
-Route::get('/', [PostController::class, 'index']);
-Route::get('/user/{username}/comments/{id}/{slug}', [PostController::class, 'show']);
+Route::get('/', [PostController::class, 'hotSort']);
+Route::get('/new', [PostController::class, 'newSort']);
+Route::get('/post/{id}/', [PostController::class, 'show']);
 
 
 // Protected routes

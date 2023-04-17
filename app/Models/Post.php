@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -19,11 +20,17 @@ class Post extends Model
         'text',
         'upvotes',
         'downvotes',
+        'rating',
     ];
 
     protected static function booted() {
         static::creating(function ($post) {
             $post->slug = Str::slug($post->title);
+        });
+    }
+    public static function ratingUpdate(){
+        static::creating(function ($post) {
+            $post->rating = $post->upvotes - $post->downvotes;
         });
     }
     public function community(): BelongsTo
@@ -34,4 +41,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

@@ -20,6 +20,13 @@ class PostService
         return PostResource::make($post);
     }
 
+    public function showPost(string $id): PostResource
+    {
+        $post = Post::where('id', $id)->firstOrFail();
+
+        return PostResource::make($post);
+    }
+
     public function updatePost(string $title, string $text, string $id): PostResource
     {
         $user_id = auth('sanctum')->id();

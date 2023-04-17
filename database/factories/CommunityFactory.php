@@ -18,8 +18,9 @@ class CommunityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this -> faker ->unique()-> title(10),
+            'name' => $this -> faker ->unique()-> text(10),
             'description' => $this -> faker -> sentence(20),
+            
         ];
     }
 }

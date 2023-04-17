@@ -11,9 +11,14 @@ use App\Services\PostService;
 
 class PostController extends Controller
 {
-    public function index()
+    public function hotSort()
     {
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::orderBy('rating', 'desc')->paginate())->response()->getData(true);
+    }
+
+    public function newSort()
+    {
+        return PostResource::collection(Post::orderBy('created_at')->paginate())->response()->getData(true);
     }
 
     public function store(PostRequest $request, PostService $service)
@@ -21,18 +26,10 @@ class PostController extends Controller
         return $service->storePost($request->title, $request->text);
     }
 
-    public function show(string $username, string $id, string $slug): PostResource
+    public function show(string $id, PostService $service): PostResource
     {
-        $user = User::where('name', $username)->firstOrFail();
-
-        $post = Post::where('user_id', $user->id)
-            ->where('id', $id)
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        return PostResource::make($post);
+        return $service->showPost($id);
     }
-
     public function update(PostRequest $request, string $id, PostService $service): PostResource
     {
         return $service->updatePost($request->title, $request->text, $id);

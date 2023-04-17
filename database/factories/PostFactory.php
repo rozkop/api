@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Post;
 use App\Models\Community;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,6 +26,7 @@ class PostFactory extends Factory
             'upvotes'=> $this->faker->numberBetween(10, 150),
             'downvotes'=> $this->faker->numberBetween(10, 150),
             'community_id' => Community::factory(),
+            'rating' => Post::ratingUpdate(),
         ];
     }
 }

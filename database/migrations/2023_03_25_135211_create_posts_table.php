@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('text')->nullable();
             $table->integer('upvotes');
             $table->integer('downvotes');
+            $table->integer('rating');
             $table->timestamps();
         });
     }
