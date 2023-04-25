@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\CommunityController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +40,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/settings', UserProfileController::class);
 });
 
-Route::group(['middleware' => ['role:admin']], function(){
+Route::group(['middleware' => ['role:admin']], function () {
 
 });

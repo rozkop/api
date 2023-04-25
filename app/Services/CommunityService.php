@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Services;
+
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
-
-
 
 class CommunityService
 {
@@ -24,6 +23,7 @@ class CommunityService
             'description' => $description,
             'user_id' => $user_id,
         ]);
+
         return CommunityResource::make($community);
     }
 
@@ -45,6 +45,7 @@ class CommunityService
     {
         $user_id = auth('sanctum')->id();
         $community = Community::where('id', $id)->where('user_id', $user_id);
+
         return $community->softDelete();
     }
 }

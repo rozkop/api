@@ -15,7 +15,7 @@ class AuthService
             'email' => $email,
             'password' => bcrypt($password),
         ]);
-        
+
         $user->assignRole('user');
 
         $token = $user->createToken('rozkop')->plainTextToken;

@@ -46,7 +46,7 @@ class PostService
     {
         $user_id = auth('sanctum')->id();
         $post = Post::where('id', $id)->where('user_id', $user_id);
+
         return $post->softDelete();
     }
-
 }
