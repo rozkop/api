@@ -7,13 +7,14 @@ use App\Models\Post;
 
 class PostService
 {
-    public function storePost(string $title, string $text): PostResource
+    public function storePost(string $title, string $text, string $community_id): PostResource
     {
         $user_id = auth('sanctum')->id();
 
         $post = Post::create([
             'title' => $title,
             'text' => $text,
+            'community_id' => $community_id,
             'user_id' => $user_id,
         ]);
 
@@ -40,4 +41,12 @@ class PostService
 
         return PostResource::make($post);
     }
+
+    public function destroyPost(string $id)
+    {
+        $user_id = auth('sanctum')->id();
+        $post = Post::where('id', $id)->where('user_id', $user_id);
+        return $post->softDelete();
+    }
+
 }

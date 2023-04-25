@@ -12,11 +12,11 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,
+            'rating' => $this->rating,
             'community_id' => $this->community->id,
             'slug' => $this->slug,
             'title' => $this->title,
             'text' => $this->text,
-            'rating' => $this->rating,
             'comments' => CommentResource::collection($this->comments),
         ];
     }

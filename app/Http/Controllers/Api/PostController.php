@@ -17,12 +17,12 @@ class PostController extends Controller
 
     public function newSort()
     {
-        return PostResource::collection(Post::orderBy('created_at')->paginate())->response()->getData(true);
+        return PostResource::collection(Post::orderBy('created_at', 'desc')->paginate())->response()->getData(true);
     }
 
     public function store(PostRequest $request, PostService $service)
     {
-        return $service->storePost($request->title, $request->text);
+        return $service->storePost($request->title, $request->text, $request->community_id);
     }
 
     public function show(string $id, PostService $service): PostResource
@@ -35,11 +35,8 @@ class PostController extends Controller
         return $service->updatePost($request->title, $request->text, $id);
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id, PostService $service)
     {
-        $user_id = auth('sanctum')->id();
-
-        $post = Post::where('user_id', $user_id)->where('id', $id);
-        $post->delete();
+        return $service->destroyPost($id);
     }
 }

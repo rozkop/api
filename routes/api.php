@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
 Route::get('/post/{id}/', [PostController::class, 'show']);
+Route::get('/c/{id}/', [CommunityController::class, 'show']);
 
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -29,6 +31,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/edit/{id}', [PostController::class, 'update']);
     Route::delete('/delete/{id}', [PostController::class, 'destroy']);
 
+    //Community actions
+    Route::post('/c/create', [CommunityController::class, 'store']);
+    Route::put('/c/{id}/edit', [CommunityController::class, 'update']);
+    Route::delete('/c/delete/{id}', [PostController::class, 'destroy']);
+
     // User profile actions
     Route::apiResource('/settings', UserProfileController::class);
+});
+
+Route::group(['middleware' => ['role:admin']], function(){
+
 });

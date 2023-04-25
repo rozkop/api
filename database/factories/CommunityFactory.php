@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +21,7 @@ class CommunityFactory extends Factory
         return [
             'name' => $this->faker->unique()->text(10),
             'description' => $this->faker->sentence(20),
-
+            'user_id' => User::factory(),
         ];
     }
 }
