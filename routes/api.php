@@ -36,10 +36,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/c/{id}/edit', [CommunityController::class, 'update']);
     Route::delete('/c/delete/{id}', [PostController::class, 'destroy']);
 
+    Route::group(['middleware' => ['role:moderator|admin']], function () {
+        
+    });
     // User profile actions
     Route::apiResource('/settings', UserProfileController::class);
 });
 
-Route::group(['middleware' => ['role:admin']], function () {
-
-});

@@ -23,8 +23,8 @@ class CommunityController extends Controller
     {
         return $service->updateCommunity($request->name, $request->description, $id);
     }
-    // public function destroy(string $id, CommunityService $service)
-    // {
-    //     return $service->destroyCommunity($id);
-    // }
+    public function destroy(string $id, CommunityService $service)
+    {
+        return $service->destroyCommunity($id);
+    }
 }
