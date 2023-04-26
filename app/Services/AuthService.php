@@ -16,8 +16,6 @@ class AuthService
             'password' => bcrypt($password),
         ]);
 
-        $user->assignRole('user');
-
         $token = $user->createToken('rozkop')->plainTextToken;
 
         return BaseResource::make([

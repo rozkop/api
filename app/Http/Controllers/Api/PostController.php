@@ -25,18 +25,22 @@ class PostController extends Controller
         return $service->storePost($request->title, $request->text, $request->community_id);
     }
 
-    public function show(string $id, PostService $service): PostResource
+    public function show(Post $post, PostService $service): PostResource
     {
-        return $service->showPost($id);
+        return $service->showPost($post->id);
     }
 
-    public function update(PostRequest $request, string $id, PostService $service): PostResource
+    public function update(PostRequest $request, Post $post, PostService $service): PostResource
     {
-        return $service->updatePost($request->title, $request->text, $id);
+        $this->authorize('update', $post);
+
+        return $service->updatePost($request->title, $request->text, $post->id);
     }
 
-    public function destroy(string $id, PostService $service)
+    public function destroy(Post $post, PostService $service)
     {
-        return $service->destroyPost($id);
+        $this->authorize('delete', $post);
+
+        return $service->destroyPost($post->id);
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -29,13 +29,10 @@ class CommunityService
 
     public function updateCommunity(string $name, string $description, string $id): CommunityResource
     {
-        $user_id = auth('sanctum')->id();
-
-        $community = Community::find($id);
+        $community = Community::where('id', $id)->firstOrFail();
         $community->update([
             'name' => $name,
             'description' => $description,
-            'user_id' => $user_id,
         ]);
 
         return CommunityResource::make($community);
@@ -43,9 +40,7 @@ class CommunityService
 
     public function destroyCommunity(string $id)
     {
-        $user_id = auth('sanctum')->id();
-        $community = Community::where('id', $id)->where('user_id', $user_id);
 
-        return $community->softDelete();
+        return Community::where('id', $id)->firstOrFail()->delete();
     }
 }

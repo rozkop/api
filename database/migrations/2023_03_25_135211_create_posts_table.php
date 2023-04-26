@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('downvotes');
             $table->integer('rating');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
