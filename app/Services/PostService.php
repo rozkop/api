@@ -34,9 +34,9 @@ class PostService
         $post->update([
             'title' => $title,
             'text' => $text,
+            Post::slugger($post)
         ]);
         
-        Post::slugger($post);
 
         return PostResource::make($post);
     }

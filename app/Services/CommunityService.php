@@ -33,6 +33,7 @@ class CommunityService
         $community->update([
             'name' => $name,
             'description' => $description,
+            Community::slugger($community)
         ]);
         
         Community::slugger($community);
