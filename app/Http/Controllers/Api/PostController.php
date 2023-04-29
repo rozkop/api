@@ -12,12 +12,12 @@ class PostController extends Controller
 {
     public function hotSort()
     {
-        return PostResource::collection(Post::paginate());
+        return PostResource::collection(Post::get()->paginate());
     }
 
     public function newSort()
     {
-        return PostResource::collection(Post::paginate());
+        return PostResource::collection(Post::get()->paginate());
     }
 
     public function store(PostRequest $request, PostService $service)
