@@ -34,6 +34,8 @@ class CommunityService
             'name' => $name,
             'description' => $description,
         ]);
+        
+        Community::slugger($community);
 
         return CommunityResource::make($community);
     }

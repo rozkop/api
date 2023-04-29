@@ -30,13 +30,13 @@ class PostService
 
     public function updatePost(string $title, string $text, string $id): PostResource
     {
-        $user_id = auth('sanctum')->id();
-
         $post = Post::where('id', $id)->firstOrFail();
         $post->update([
             'title' => $title,
             'text' => $text,
         ]);
+        
+        Post::slugger($post);
 
         return PostResource::make($post);
     }

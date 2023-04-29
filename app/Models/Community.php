@@ -36,4 +36,11 @@ class Community extends Model
             $community->slug = Str::slug($community->name);
         });
     }
+    
+    public static function slugger(Community $community)
+    {
+        return $community->slug = Str::slug($community->name);
+    }
+
+
 }
