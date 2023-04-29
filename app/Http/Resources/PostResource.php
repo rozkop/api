@@ -19,6 +19,10 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'text' => $this->text,
             'comments' => CommentResource::collection($this->comments),
+            'data' => $this->collection,
+            'links' => [
+                'self' => 'link-value',
+            ],
         ];
     }
 }
