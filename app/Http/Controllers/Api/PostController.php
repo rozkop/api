@@ -12,12 +12,12 @@ class PostController extends Controller
 {
     public function hotSort()
     {
-        return PostResource::collection(Post::orderBy('rating', 'desc')->paginate(15)->links());
+        return PostResource::collection(Post::orderBy('rating', 'desc')->paginate(15));
     }
 
     public function newSort()
     {
-        return PostResource::collection(Post::orderBy('created_at', 'asc')->paginate(15)->links());
+        return PostResource::collection(Post::orderBy('created_at', 'asc')->paginate(15));
     }
 
     public function store(PostRequest $request, PostService $service)
