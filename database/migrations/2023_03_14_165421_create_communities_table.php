@@ -18,6 +18,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->string('favourite_count');
             $table->string('name')->unique();
             $table->longText('description');
             $table->string('slug');

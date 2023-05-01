@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
+use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
 
 class Comment extends Model implements ReactableInterface
 {
@@ -14,15 +14,13 @@ class Comment extends Model implements ReactableInterface
 
     protected $fillable = [
         'text',
-        'upvotes',
-        'downvotes',
         'rating',
     ];
 
     public static function ratingUpdate()
     {
         static::creating(function ($comment) {
-            $comment->rating = $comment->upvotes - $comment->downvotes;
+            $comment->rating = $comment->viaLoveReacter()->getCount();
         });
     }
 

@@ -12,7 +12,7 @@ class PostPolicy
         if ($user->id === $post->user_id || $user->can('edit any posts')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
@@ -21,7 +21,7 @@ class PostPolicy
         if ($user->id === $post->user_id || $user->can('delete any posts')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
@@ -30,7 +30,7 @@ class PostPolicy
         if ($user->can('restore anything')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 }

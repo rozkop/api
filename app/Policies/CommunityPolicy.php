@@ -12,7 +12,7 @@ class CommunityPolicy
         if ($user->id === $community->user_id || $user->can('edit any communities')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
@@ -21,7 +21,7 @@ class CommunityPolicy
         if ($user->id === $community->user_id || $user->can('delete any communities')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 
@@ -30,7 +30,7 @@ class CommunityPolicy
         if ($user->can('restore anything')) {
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 }

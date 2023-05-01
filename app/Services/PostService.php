@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 
 class PostService
 {
@@ -34,9 +35,8 @@ class PostService
         $post->update([
             'title' => $title,
             'text' => $text,
-            Post::slugger($post)
+            Post::slugger($post),
         ]);
-        
 
         return PostResource::make($post);
     }
@@ -44,5 +44,44 @@ class PostService
     public function destroyPost(string $id)
     {
         return Post::where('id', $id)->firstOrFail()->delete();
+    }
+
+    public function upVote(VotingService $votingService, Post $post): PostResource
+    {
+        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
+        $votingService->upVote($user, $post, 'Like');
+        $post->update(
+            [
+                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
+            ]
+        );
+
+        return PostResource::make($post);
+    }
+
+    public function downVote(VotingService $votingService, Post $post): PostResource
+    {
+        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
+        $votingService->downVote($user, $post, 'Dislike');
+        $post->update(
+            [
+                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
+            ]
+        );
+
+        return PostResource::make($post);
+    }
+
+    public function removeVote(VotingService $votingService, Post $post): PostResource
+    {
+        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
+        $votingService->removeReaction($user, $post, 'Like|Dislike');
+        $post->update(
+            [
+                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
+            ]
+        );
+
+        return PostResource::make($post);
     }
 }
