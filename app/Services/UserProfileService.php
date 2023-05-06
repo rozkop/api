@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
-use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\BaseResource;
 use App\Models\User;
-use App\Models\UserInfo;
 
 class UserProfileService
 {
-    public function updateUser(ProfileRequest $request): BaseResource
+    public function updateUser(UserRequest $request): BaseResource
     {
         $user_id = auth('sanctum')->id();
 
@@ -21,15 +20,23 @@ class UserProfileService
                     $user->save();
                     break;
                 case 'country':
-                    $userInfo = UserInfo::where('user_id', $user_id)->first();
-                    $userInfo->country = $inputValue;
-                    $userInfo->save();
+                    $User = User::where('user_id', $user_id)->first();
+                    $User->country = $inputValue;
+                    $User->save();
                     break;
                 case 'gender':
-                    $userInfo = UserInfo::where('user_id', $user_id)->first();
-                    $userInfo->gender = $inputValue;
-                    $userInfo->save();
+                    $User = User::where('user_id', $user_id)->first();
+                    $User->gender = $inputValue;
+                    $User->save();
                     break;
+                case 'avatar':
+                    $User = User::where('user_id', $user_id)->first();
+                    $User->avatar = $inputValue;
+                    $User->save();
+                case 'role':
+                    $User = User::where('user_id', $user_id)->first();
+                    $User->role = $User->getRoleNames();
+                    $User->save();
                 default:
                     break;
             }

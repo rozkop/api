@@ -21,8 +21,6 @@ class CommentFactory extends Factory
     {
         return [
             'text' => $this->faker->text(20),
-            'upvotes' => $this->faker->numberBetween(10, 150),
-            'downvotes' => $this->faker->numberBetween(10, 150),
             'rating' => Comment::ratingUpdate(),
             'user_id' => User::factory(),
             'post_id' => Post::factory(),

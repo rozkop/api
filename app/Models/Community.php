@@ -21,6 +21,7 @@ class Community extends Model implements ReactableInterface
         'description',
         'slug',
         'favourite_count',
+        'color,',
     ];
 
     public function posts(): HasMany
@@ -37,6 +38,9 @@ class Community extends Model implements ReactableInterface
     {
         static::creating(function ($community) {
             $community->slug = Str::slug($community->name);
+        });
+        static::creating(function ($community) {
+            $community->favourite_count = $community->viaLoveReactant()->getReactionTotal()->getCount();
         });
     }
 

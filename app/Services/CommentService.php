@@ -8,13 +8,13 @@ use App\Models\User;
 
 class CommentService
 {
-    public function storeComment(string $text, string $post_id): CommentResource
+    public function storeComment(string $text, string $comment_id): CommentResource
     {
         $user_id = auth('sanctum')->id();
 
         $comment = Comment::create([
             'text' => $text,
-            'post_id' => $post_id,
+            'post_id' => $comment_id,
             'owner' => $user_id,
         ]);
 
@@ -38,27 +38,31 @@ class CommentService
         return Comment::where('id', $id)->firstOrFail()->delete();
     }
 
-    public function upVote(VotingService $votingService, Comment $comment)
+    public function vote(VotingService $votingService, Comment $comment, string $reaction): CommentResource
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->upVote($user, $comment);
+        $votingService->vote($user, $comment, $reaction);
 
-        return $comment->update(
+        $comment->update(
             [
                 'rating' => $comment->viaLoveReactant()->getReactionTotal()->getWeight(),
             ]
         );
+
+        return CommentResource::make($comment);
     }
 
-    public function downVote(VotingService $votingService, Comment $comment)
+    public function removeVote(VotingService $votingService, Comment $comment, string $reaction): CommentResource
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->downVote($user, $comment);
+        $votingService->removeReaction($user, $comment, $reaction);
 
-        return $comment->update(
+        $comment->update(
             [
                 'rating' => $comment->viaLoveReactant()->getReactionTotal()->getWeight(),
             ]
         );
+
+        return CommentResource::make($comment);
     }
 }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
-use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
+use App\Services\VotingService;
 
 class CommentController extends Controller
 {
@@ -16,11 +16,19 @@ class CommentController extends Controller
         return $service->storeComment($request->text, $post);
     }
 
-    public function update(CommentRequest $request, CommentService $service, Comment $comment): CommentResource
+    public function upVote(VotingService $service, Comment $comment)
     {
-        $this->authorize('update', $comment);
+        return $service->vote($comment, 'Like');
+    }
 
-        return $service->updateComment($request->text, $comment->id);
+    public function downVote(VotingService $service, Comment $comment)
+    {
+        return $service->vote($comment, 'Dislike');
+    }
+
+    public function removeVote(VotingService $service, Comment $comment)
+    {
+        return $service->removeReaction($comment, 'Favourite');
     }
 
     public function destroy(Comment $comment, CommentService $service)

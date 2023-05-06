@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('text')->nullable();
-            $table->integer('upvotes');
-            $table->integer('downvotes');
-            $table->integer('rating');
+            $table->integer('upvotes')->default(0);
+            $table->integer('downvotes')->default(0);
+            $table->integer('rating')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

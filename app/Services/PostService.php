@@ -46,10 +46,10 @@ class PostService
         return Post::where('id', $id)->firstOrFail()->delete();
     }
 
-    public function upVote(VotingService $votingService, Post $post): PostResource
+    public function vote(VotingService $votingService, Post $post, string $reaction): PostResource
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->upVote($user, $post, 'Like');
+        $votingService->vote($user, $post, $reaction);
         $post->update(
             [
                 'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
@@ -59,23 +59,10 @@ class PostService
         return PostResource::make($post);
     }
 
-    public function downVote(VotingService $votingService, Post $post): PostResource
+    public function removeVote(VotingService $votingService, Post $post, string $reaction): PostResource
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->downVote($user, $post, 'Dislike');
-        $post->update(
-            [
-                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
-            ]
-        );
-
-        return PostResource::make($post);
-    }
-
-    public function removeVote(VotingService $votingService, Post $post): PostResource
-    {
-        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->removeReaction($user, $post, 'Like|Dislike');
+        $votingService->removeReaction($user, $post, $reaction);
         $post->update(
             [
                 'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),

@@ -15,12 +15,15 @@ class Comment extends Model implements ReactableInterface
     protected $fillable = [
         'text',
         'rating',
+        'upvotes',
+        'downvotes',
+        'rating',
     ];
 
     public static function ratingUpdate()
     {
         static::creating(function ($comment) {
-            $comment->rating = $comment->viaLoveReacter()->getCount();
+            $comment->rating = $comment->viaLoveReactant()->getReactionTotal()->getWeight();
         });
     }
 

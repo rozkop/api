@@ -35,7 +35,7 @@ class Post extends Model implements ReactableInterface
     public static function ratingUpdate()
     {
         static::creating(function ($post) {
-            $post->rating = $post->upvotes - $post->downvotes;
+            $post->rating = $post->viaLoveReactant()->getReactionTotal()->getWeight();
         });
     }
 

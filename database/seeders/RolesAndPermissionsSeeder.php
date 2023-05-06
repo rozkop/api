@@ -18,6 +18,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'delete any comment']);
         Permission::create(['name' => 'restore anything']);
 
+        Role::create(['name' => 'user']);
+
         Role::create(['name' => 'moderator'])->givePermissionTo([
             'delete any post',
             'delete any community',

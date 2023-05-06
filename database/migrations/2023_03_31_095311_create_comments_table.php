@@ -24,7 +24,9 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->longText('text')->nullable();
-            $table->integer('rating');
+            $table->integer('upvotes')->default(0);
+            $table->integer('downvotes')->default(0);
+            $table->string('rating')->default(0);
             $table->timestamps();
         });
     }

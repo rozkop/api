@@ -23,8 +23,6 @@ class PostFactory extends Factory
             'title' => $this->faker->text(15),
             'text' => $this->faker->sentence(50),
             'user_id' => User::factory(),
-            'upvotes' => $this->faker->numberBetween(10, 150),
-            'downvotes' => $this->faker->numberBetween(10, 150),
             'community_id' => Community::factory(),
             'rating' => Post::ratingUpdate(),
         ];

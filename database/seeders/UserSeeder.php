@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory(10)
+        User::factory()
             ->has(
                 Community::factory(1)
                     ->has(
@@ -20,12 +20,13 @@ class UserSeeder extends Seeder
                             ->has(Comment::factory(rand(3, 7)))
                     )
             )
-
             ->create();
 
         User::factory()->create([
             'name' => 'AdminUser',
             'email' => 'admin@example.com',
+            'role' => 'admin',
         ])->assignRole('admin');
+
     }
 }

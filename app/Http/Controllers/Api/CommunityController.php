@@ -7,6 +7,7 @@ use App\Http\Requests\CommunityRequest;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use App\Services\CommunityService;
+use App\Services\VotingService;
 
 class CommunityController extends Controller
 {
@@ -25,6 +26,16 @@ class CommunityController extends Controller
         $this->authorize('update', $community);
 
         return $service->updateCommunity($request->name, $request->description, $community->id);
+    }
+
+    public function addFavourite(VotingService $service, Community $community)
+    {
+        return $service->vote($community, 'Favourite');
+    }
+
+    public function removeFavorite(VotingService $service, Community $community)
+    {
+        return $service->removeReaction($community, 'Favourite');
     }
 
     public function destroy(Community $community, CommunityService $service)

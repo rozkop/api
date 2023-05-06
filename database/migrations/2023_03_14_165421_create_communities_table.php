@@ -18,10 +18,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('favourite_count');
+            $table->integer('favourite_count')->nullable();
             $table->string('name')->unique();
             $table->longText('description');
             $table->string('slug');
+            $table->string('color')->default('#878787');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -16,22 +16,25 @@ class User extends Authenticatable implements ReacterableInterface
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, Reacterable;
 
-    protected static function booted()
-    {
-        static::created(function ($user) {
-            UserInfo::create([
-                'user_id' => $user->id,
-                'gender' => null,
-                'country' => null,
-            ]);
-        });
-    }
-
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'gender',
+        'country',
+        'avatar',
+    ];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = ['email_verified_at' => 'datetime'];
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->assignRole('user');
+        });
+    }
 
     public function comments(): HasMany
     {

@@ -27,12 +27,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Post actions
     Route::post('post/submit', [PostController::class, 'store']);
-    Route::put('post/edit/{post}', [PostController::class, 'update']);
-    Route::delete('post/delete/{post}', [PostController::class, 'destroy']);
+    Route::put('post/{post}/edit', [PostController::class, 'update']);
+    Route::delete('post/{post}/delete', [PostController::class, 'destroy']);
+    Route::put('/post/{post}/upvote', [PostController::class, 'upVote']);
+    Route::put('/post/{post}/downvote', [PostController::class, 'downVote']);
+    Route::put('/post/{post}/removevote', [PostController::class, 'removeVote']);
+
+    // Comment actions
+    Route::post('post/{post}/comments/submit', [CommentController::class, 'store']);
+    Route::delete('post/{post}/comments/{comment}/delete', [CommentController::class, 'destroy']);
+    Route::put('/post/{post}/comments/{comment}/upvote', [CommentController::class, 'upVote']);
+    Route::put('/post/{post}/comments/{comment}/downvote', [CommentController::class, 'downVote']);
+    Route::put('/post/{post}/comments/{comment}/removevote', [CommentController::class, 'removeVote']);
 
     //Community actions
+    Route::put('/c/{community}/add', [CommunityController::class, 'addFavourite']);
+    Route::put('/c/{community}/remove', [CommunityController::class, 'removeFavorite']);
     Route::post('/c/create', [CommunityController::class, 'store']);
-    Route::put('/c/edit/{community}', [CommunityController::class, 'update']);
-    Route::delete('/c/delete/{community}', [CommunityController::class, 'destroy']);
+    Route::put('/c/{community}/edit', [CommunityController::class, 'update']);
+    Route::delete('/c/{community}/delete', [CommunityController::class, 'destroy']);
 
 });
