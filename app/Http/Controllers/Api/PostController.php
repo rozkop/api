@@ -23,7 +23,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request, PostService $service)
     {
-        return $service->storePost($request->title, $request->text, $request->post_id);
+        return $service->storePost($request->title, $request->text, $request->community_id);
     }
 
     public function show(Post $post, PostService $service): PostResource
