@@ -2,25 +2,22 @@
 
 namespace App\Services;
 
+use App\Http\Resources\BaseResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class VotingService
 {
-    public function vote(Model $model, string $reaction)
+    public function vote(Model $model, string $reaction): BaseResource
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
         $reacterFacade = $user->viaLoveReacter();
 
         if ($reacterFacade->hasNotReactedTo($model)) {
-            return $reacterFacade->reactTo($model, $reaction);
+            $reacterFacade->reactTo($model, $reaction);
+            return BaseResource::make(['message' => 'Reacted successfully']);
         } else {
-            return response()->json(
-                [
-                    'message' => 'User already reacted to this',
-                ],
-                403
-            );
+            return BaseResource::make(['error' => 'Already reacted']);
         }
     }
 
@@ -30,14 +27,10 @@ class VotingService
         $reacterFacade = $user->viaLoveReacter();
 
         if ($reacterFacade->hasReactedTo($model)) {
-            return $reacterFacade->unreactTo($model, $reaction);
+            $reacterFacade->unreactTo($model, $reaction);
+            return BaseResource::make(['message' => 'Reaction removed successfully']);
         } else {
-            return response()->json(
-                [
-                    'message' => 'User do not reacted to this',
-                ],
-                403
-            );
-        }
+            return BaseResource::make(['error' => 'Not reacted']);
+    }
     }
 }

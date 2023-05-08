@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 
@@ -39,9 +40,9 @@ class CommunityService
         return CommunityResource::make($community);
     }
 
-    public function destroyCommunity(string $id)
+    public function destroyCommunity(string $id): BaseResource
     {
-
-        return Community::where('id', $id)->firstOrFail()->delete();
+        Community::where('id', $id)->firstOrFail()->delete();
+        return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }

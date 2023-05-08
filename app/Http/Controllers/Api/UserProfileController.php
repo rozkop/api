@@ -24,12 +24,17 @@ class UserProfileController extends Controller
         return $service->updateUser($request);
     }
 
-    public function destroy(): BaseResource
+    public function destroy(UserProfileService $service, User $user): BaseResource
     {
-        $user_id = auth('sanctum')->id();
-        $user = User::where('id', $user_id)->first();
-        $user->delete();
+        return $service->destroyUser($user);
+    }
 
-        return BaseResource::make(['message' => 'Profile deleted successfully!']);
+    public function giveModerator(UserProfileService $service, User $user): BaseResource
+    {
+        return $service->giveModeratorRole($user);
+    }
+    public function removeModerator(UserProfileService $service, User $user): BaseResource
+    {
+        return $service->removeModeratorRole($user);
     }
 }

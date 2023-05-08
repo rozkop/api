@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

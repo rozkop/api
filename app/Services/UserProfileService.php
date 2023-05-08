@@ -33,15 +33,39 @@ class UserProfileService
                     $User = User::where('user_id', $user_id)->first();
                     $User->avatar = $inputValue;
                     $User->save();
-                case 'role':
-                    $User = User::where('user_id', $user_id)->first();
-                    $User->role = $User->getRoleNames();
-                    $User->save();
                 default:
                     break;
             }
         }
 
         return BaseResource::make(['message' => 'Updated successfully!']);
+    }
+
+    public function giveModeratorRole(User $user): BaseResource
+    {
+        if($user->hasRole('moderator'))
+        {
+            return BaseResource::make(['message' => 'User is already moderator!']);
+        }else
+        {
+            $user->assignRole('moderator');
+            return BaseResource::make(['message' => 'Assign successfully!']);
+        }
+    }
+
+    public function removeModeratorRole(User $user): BaseResource
+    {
+        if($user->hasRole('moderator'))
+        {
+            $user->removeRole('moderator');
+            return BaseResource::make(['message' => 'Removed successfully!']);
+    }else
+        return BaseResource::make(['message' => 'User is not a moderator!']);
+    }
+
+    public function destroyUser(User $user): BaseResource
+    {
+        $user->firstOrFail()->delete();
+        return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }

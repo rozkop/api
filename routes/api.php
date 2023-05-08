@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('post/{post}/comments/{comment}/delete', [CommentController::class, 'destroy']);
     Route::put('/post/{post}/comments/{comment}/upvote', [CommentController::class, 'upVote']);
     Route::put('/post/{post}/comments/{comment}/downvote', [CommentController::class, 'downVote']);
-    Route::put('/post/{post}/comments/{comment}/removevote', [CommentController::class, 'removeVote']);
+    Route::put('/post/{post}/comments/{comment}/removelike', [CommentController::class, 'removeLike']);
+    Route::put('/post/{post}/comments/{comment}/removedislike', [CommentController::class, 'removeDislike']);
 
     //Community actions
     Route::put('/c/{community}/add', [CommunityController::class, 'addFavourite']);
@@ -46,5 +48,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/c/create', [CommunityController::class, 'store']);
     Route::put('/c/{community}/edit', [CommunityController::class, 'update']);
     Route::delete('/c/{community}/delete', [CommunityController::class, 'destroy']);
+
+    //User actions
+    Route::put('/user/update', [UserProfileController::class, 'update']);
+    Route::group(['middleware' => ['role:admin']], function() {
+        Route::put('user/{user}/givemod', [UserProfileController::class, 'giveModerator']);
+        Route::put('user/{user}/removemod', [UserProfileController::class, 'removeModerator']);
+        Route::delete('user/{user}/delete', [UserProfileController::class, 'destroy']);
+    });
 
 });

@@ -48,9 +48,14 @@ class PostController extends Controller
         return $service->vote($post, 'Dislike');
     }
 
-    public function removeVote(VotingService $service, Post $post)
+    public function removeLike(VotingService $service, Post $post)
     {
-        return $service->removeReaction($post, 'Favourite');
+        return $service->removeReaction($post, 'Like');
+    }
+
+    public function removeDislike(VotingService $service, Post $post)
+    {
+        return $service->removeReaction($post, 'Dislike');
     }
 
     public function destroy(Post $post, PostService $service)

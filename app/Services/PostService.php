@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use App\Models\User;
 
 class PostService
 {
@@ -41,34 +41,9 @@ class PostService
         return PostResource::make($post);
     }
 
-    public function destroyPost(string $id)
+    public function destroyPost(string $id): BaseResource
     {
-        return Post::where('id', $id)->firstOrFail()->delete();
-    }
-
-    public function vote(VotingService $votingService, Post $post, string $reaction): PostResource
-    {
-        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->vote($user, $post, $reaction);
-        $post->update(
-            [
-                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
-            ]
-        );
-
-        return PostResource::make($post);
-    }
-
-    public function removeVote(VotingService $votingService, Post $post, string $reaction): PostResource
-    {
-        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $votingService->removeReaction($user, $post, $reaction);
-        $post->update(
-            [
-                'rating' => $post->viaLoveReactant()->getReactionTotal()->getWeight(),
-            ]
-        );
-
-        return PostResource::make($post);
+        Post::where('id', $id)->firstOrFail()->delete();
+        return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }
