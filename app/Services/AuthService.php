@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Http\Resources\BaseResource;
 use App\Models\User;
-use App\Models\UserInfo;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -21,7 +20,7 @@ class AuthService
 
         return BaseResource::make([
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
@@ -29,7 +28,7 @@ class AuthService
     {
         $user = User::where('email', $email)->first();
 
-        if (!$user || !Hash::check($password, $user->password)) {
+        if (! $user || ! Hash::check($password, $user->password)) {
             return BaseResource::make(['error' => 'Invalid email or password!']);
         }
 
@@ -37,7 +36,7 @@ class AuthService
 
         return BaseResource::make([
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class CommunityRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,9 +14,8 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required'],
-            'community_id' => ['required'],
-            'text' => ['required'],
+            'name' => ['required'],
+            'description' => ['required'],
         ];
     }
 }

@@ -8,7 +8,7 @@ class RegisterUserRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return !auth('sanctum')->check();
+        return ! auth('sanctum')->check();
     }
 
     public function rules(): array
@@ -16,7 +16,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'email' => ['required', 'email', 'unique:users,email'],
             'name' => ['required', 'string', 'unique:users,name'],
-            'password' => ['required', 'min:8', 'confirmed']
+            'password' => ['required', 'min:8', 'confirmed'],
         ];
     }
 }

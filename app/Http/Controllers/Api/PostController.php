@@ -6,43 +6,62 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use App\Models\User;
 use App\Services\PostService;
+use App\Services\VotingService;
 
 class PostController extends Controller
 {
-    public function index()
+    public function hotSort()
     {
-        return PostResource::collection(Post::all());
+        return PostResource::collection(Post::get()->paginate());
+    }
+
+    public function newSort()
+    {
+        return PostResource::collection(Post::get()->paginate());
     }
 
     public function store(PostRequest $request, PostService $service)
     {
-        return $service->storePost($request->title, $request->text);
+        return $service->storePost($request->title, $request->text, $request->post_id);
     }
 
-    public function show(string $username, string $id, string $slug): PostResource
+    public function show(Post $post, PostService $service): PostResource
     {
-        $user = User::where('name', $username)->firstOrFail();
-
-        $post = Post::where('user_id', $user->id)
-            ->where('id', $id)
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        return PostResource::make($post);
+        return $service->showPost($post->id);
     }
 
-    public function update(PostRequest $request, string $id, PostService $service): PostResource
+    public function update(PostRequest $request, Post $post, PostService $service): PostResource
     {
-        return $service->updatePost($request->title, $request->text, $id);
+        $this->authorize('update', $post);
+
+        return $service->updatePost($request->title, $request->text, $post->id);
     }
 
-    public function destroy(string $id)
+    public function upVote(VotingService $service, Post $post)
     {
-        $user_id = auth('sanctum')->id();
+        return $service->vote($post, 'Like');
+    }
 
-        $post = Post::where('user_id', $user_id)->where('id', $id);
-        $post->delete();
+    public function downVote(VotingService $service, Post $post)
+    {
+        return $service->vote($post, 'Dislike');
+    }
+
+    public function removeLike(VotingService $service, Post $post)
+    {
+        return $service->removeReaction($post, 'Like');
+    }
+
+    public function removeDislike(VotingService $service, Post $post)
+    {
+        return $service->removeReaction($post, 'Dislike');
+    }
+
+    public function destroy(Post $post, PostService $service)
+    {
+        $this->authorize('delete', $post);
+
+        return $service->destroyPost($post->id);
     }
 }

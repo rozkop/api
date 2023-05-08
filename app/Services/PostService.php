@@ -2,19 +2,28 @@
 
 namespace App\Services;
 
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 
 class PostService
 {
-    public function storePost(string $title, string $text): PostResource
+    public function showPost(string $id): PostResource
+    {
+        $post = Post::where('id', $id)->firstOrFail();
+
+        return PostResource::make($post);
+    }
+
+    public function storePost(string $title, string $text, string $community_id): PostResource
     {
         $user_id = auth('sanctum')->id();
 
         $post = Post::create([
             'title' => $title,
             'text' => $text,
-            'user_id' => $user_id
+            'community_id' => $community_id,
+            'user_id' => $user_id,
         ]);
 
         return PostResource::make($post);
@@ -22,15 +31,19 @@ class PostService
 
     public function updatePost(string $title, string $text, string $id): PostResource
     {
-        $user_id = auth('sanctum')->id();
-
-        $post = Post::find($id);
+        $post = Post::where('id', $id)->firstOrFail();
         $post->update([
             'title' => $title,
             'text' => $text,
-            'user_id' => $user_id
+            Post::slugger($post),
         ]);
 
         return PostResource::make($post);
+    }
+
+    public function destroyPost(string $id): BaseResource
+    {
+        Post::where('id', $id)->firstOrFail()->delete();
+        return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }
