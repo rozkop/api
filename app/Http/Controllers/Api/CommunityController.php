@@ -30,12 +30,12 @@ class CommunityController extends Controller
 
     public function addFavourite(VotingService $service, Community $community)
     {
-        return $service->vote($community, 'Favourite');
+        return $service->vote($community, 'Like');
     }
 
     public function removeFavorite(VotingService $service, Community $community)
     {
-        return $service->removeReaction($community, 'Favourite');
+        return $service->removeReaction($community, 'Like');
     }
 
     public function destroy(Community $community, CommunityService $service)

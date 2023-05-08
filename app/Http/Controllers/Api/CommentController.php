@@ -16,19 +16,14 @@ class CommentController extends Controller
         return $service->storeComment($request->text, $post);
     }
 
-    public function upVote(VotingService $service, Comment $comment)
+    public function addReact(VotingService $service, Post $post, Comment $comment, string $reaction)
     {
-        return $service->vote($comment, 'Like');
+        return $service->vote($comment, $reaction);
     }
 
-    public function downVote(VotingService $service, Comment $comment)
+    public function removeReact(VotingService $service, Post $post, Comment $comment, string $reaction)
     {
-        return $service->vote($comment, 'Dislike');
-    }
-
-    public function removeVote(VotingService $service, Comment $comment)
-    {
-        return $service->removeReaction($comment, 'Favourite');
+        return $service->removeReaction($comment, $reaction);
     }
 
     public function destroy(Comment $comment, CommentService $service)

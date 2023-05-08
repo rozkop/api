@@ -15,17 +15,8 @@ class Comment extends Model implements ReactableInterface
     protected $fillable = [
         'text',
         'rating',
-        'upvotes',
-        'downvotes',
         'rating',
     ];
-
-    public static function ratingUpdate()
-    {
-        static::creating(function ($comment) {
-            $comment->rating = $comment->viaLoveReactant()->getReactionTotal()->getWeight();
-        });
-    }
 
     public function post(): BelongsTo
     {
@@ -35,5 +26,10 @@ class Comment extends Model implements ReactableInterface
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function ratingUpdate(Comment $comment)
+    {
+        return $comment->rating = $comment->viaLoveReactant()->getReactionTotal()->getWeight();
     }
 }

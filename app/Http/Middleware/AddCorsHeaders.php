@@ -14,6 +14,7 @@ class AddCorsHeaders
 
         $response->header('Access-Control-Allow-Methods', '*');
         $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
         return $response;
     }
 }

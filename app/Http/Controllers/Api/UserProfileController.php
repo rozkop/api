@@ -33,6 +33,7 @@ class UserProfileController extends Controller
     {
         return $service->giveModeratorRole($user);
     }
+
     public function removeModerator(UserProfileService $service, User $user): BaseResource
     {
         return $service->removeModeratorRole($user);
