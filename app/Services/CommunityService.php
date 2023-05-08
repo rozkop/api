@@ -43,6 +43,7 @@ class CommunityService
     public function destroyCommunity(string $id): BaseResource
     {
         Community::where('id', $id)->firstOrFail()->delete();
+
         return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }

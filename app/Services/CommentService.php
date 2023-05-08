@@ -24,6 +24,7 @@ class CommentService
     public function destroyComment(string $id): BaseResource
     {
         Comment::where('id', $id)->firstOrFail()->delete();
+
         return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }

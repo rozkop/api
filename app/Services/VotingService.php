@@ -15,6 +15,8 @@ class VotingService
 
         if ($reacterFacade->hasNotReactedTo($model)) {
             $reacterFacade->reactTo($model, $reaction);
+            $model->update([$model->ratingUpdate($model)]);
+
             return BaseResource::make(['message' => 'Reacted successfully']);
         } else {
             return BaseResource::make(['error' => 'Already reacted']);
@@ -28,9 +30,11 @@ class VotingService
 
         if ($reacterFacade->hasReactedTo($model)) {
             $reacterFacade->unreactTo($model, $reaction);
+            $model->update([$model->ratingUpdate($model)]);
+
             return BaseResource::make(['message' => 'Reaction removed successfully']);
         } else {
             return BaseResource::make(['error' => 'Not reacted']);
-    }
+        }
     }
 }

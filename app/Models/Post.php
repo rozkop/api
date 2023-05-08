@@ -20,8 +20,6 @@ class Post extends Model implements ReactableInterface
         'title',
         'slug',
         'text',
-        'upvotes',
-        'downvotes',
         'rating',
     ];
 
@@ -32,11 +30,9 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public static function ratingUpdate()
+    public function ratingUpdate(Post $post)
     {
-        static::creating(function ($post) {
-            $post->rating = $post->viaLoveReactant()->getReactionTotal()->getWeight();
-        });
+        return $post->rating = $post->viaLoveReactant()->getReactionTotal()->getWeight();
     }
 
     public static function slugger(Post $post)

@@ -38,24 +38,14 @@ class PostController extends Controller
         return $service->updatePost($request->title, $request->text, $post->id);
     }
 
-    public function upVote(VotingService $service, Post $post)
+    public function addReact(VotingService $service, Post $post, string $reaction)
     {
-        return $service->vote($post, 'Like');
+        return $service->vote($post, $reaction);
     }
 
-    public function downVote(VotingService $service, Post $post)
+    public function removeReact(VotingService $service, Post $post, string $reaction)
     {
-        return $service->vote($post, 'Dislike');
-    }
-
-    public function removeLike(VotingService $service, Post $post)
-    {
-        return $service->removeReaction($post, 'Like');
-    }
-
-    public function removeDislike(VotingService $service, Post $post)
-    {
-        return $service->removeReaction($post, 'Dislike');
+        return $service->removeReaction($post, $reaction);
     }
 
     public function destroy(Post $post, PostService $service)

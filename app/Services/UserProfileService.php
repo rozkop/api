@@ -43,29 +43,30 @@ class UserProfileService
 
     public function giveModeratorRole(User $user): BaseResource
     {
-        if($user->hasRole('moderator'))
-        {
+        if ($user->hasRole('moderator')) {
             return BaseResource::make(['message' => 'User is already moderator!']);
-        }else
-        {
+        } else {
             $user->assignRole('moderator');
+
             return BaseResource::make(['message' => 'Assign successfully!']);
         }
     }
 
     public function removeModeratorRole(User $user): BaseResource
     {
-        if($user->hasRole('moderator'))
-        {
+        if ($user->hasRole('moderator')) {
             $user->removeRole('moderator');
+
             return BaseResource::make(['message' => 'Removed successfully!']);
-    }else
-        return BaseResource::make(['message' => 'User is not a moderator!']);
+        } else {
+            return BaseResource::make(['message' => 'User is not a moderator!']);
+        }
     }
 
     public function destroyUser(User $user): BaseResource
     {
         $user->firstOrFail()->delete();
+
         return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }

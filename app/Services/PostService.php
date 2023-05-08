@@ -44,6 +44,7 @@ class PostService
     public function destroyPost(string $id): BaseResource
     {
         Post::where('id', $id)->firstOrFail()->delete();
+
         return BaseResource::make(['message' => 'Deleted successfully']);
     }
 }
