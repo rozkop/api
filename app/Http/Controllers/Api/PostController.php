@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
+use App\Services\AdminService;
 use App\Services\PostService;
 use App\Services\VotingService;
 
@@ -54,5 +55,15 @@ class PostController extends Controller
         $this->authorize('delete', $post);
 
         return $service->destroyPost($post->id);
+    }
+
+    public function report(Post $post, PostService $service)
+    {
+        return $service->reportPost($post);
+    }
+
+    public function showTrashed(AdminService $service)
+    {
+        return $service->getTrashedPosts();
     }
 }

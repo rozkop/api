@@ -15,7 +15,6 @@ class Comment extends Model implements ReactableInterface
     protected $fillable = [
         'text',
         'rating',
-        'rating',
         'user_id',
         'post_id',
     ];

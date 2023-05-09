@@ -24,6 +24,7 @@ class Post extends Model implements ReactableInterface
         'rating',
         'user_id',
         'community_id',
+        'reports',
     ];
 
     protected static function booted()

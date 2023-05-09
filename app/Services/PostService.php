@@ -42,6 +42,13 @@ class PostService
         return PostResource::make($post);
     }
 
+    public function reportPost(string $id): BaseResource
+    {
+        $post = Post::where('id', $id)->firstOrFail();
+        $post->update(['reports' => +1]);
+        return BaseResource::make(['message' => 'Post reported successfully']);
+    }
+    
     public function destroyPost(string $id): BaseResource
     {
         Post::where('id', $id)->firstOrFail()->delete();

@@ -11,7 +11,7 @@ use App\Services\VotingService;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, CommentService $service, Post $post)
+    public function store(CommentService $service, CommentRequest $request, Post $post)
     {
         return $service->storeComment($request->text, $post);
     }

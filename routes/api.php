@@ -36,12 +36,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy']);
     Route::put('/post/{post}/add/{reaction?}', [PostController::class, 'addReact']);
     Route::put('/post/{post}/remove/{reaction?}', [PostController::class, 'removeReact']);
-
+    Route::put('/post/{post}/report', [PostController::class, 'report']);
+    Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
+    
     // Comment actions
-    Route::post('post/{post}/comments/submit', [CommentController::class, 'store']);
-    Route::delete('post/comments/{comment}/delete', [CommentController::class, 'destroy']);
+    Route::post('/post/{post}/comments/submit', [CommentController::class, 'store']);
+    Route::delete('/post/comments/{comment}/delete', [CommentController::class, 'destroy']);
     Route::put('/post/{post}/comments/{comment}/add/{reaction?}', [CommentController::class, 'addReact']);
     Route::put('/post/{post}/comments/{comment}/remove/{reaction?}', [CommentController::class, 'removeReact']);
+    
 
     //Community actions
     Route::put('/c/{community}/add', [CommunityController::class, 'addFavourite']);
