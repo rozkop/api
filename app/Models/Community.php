@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
 use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -51,4 +52,5 @@ class Community extends Model implements ReactableInterface
     {
         return $community->slug = Str::slug($community->name);
     }
+
 }

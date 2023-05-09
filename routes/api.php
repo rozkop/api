@@ -19,8 +19,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Public routes
 Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
-Route::get('/post/{post}/', [PostController::class, 'show']);
 Route::get('/c', [CommunityController::class, 'index']);
+Route::get('/c/{community}/hot', [CommunityController::class, 'showByHot']);
+Route::get('/c/{community}/new', [CommunityController::class, 'showByNew']);
+Route::get('/c/search/{input}', [CommunityController::class, 'search']);
 Route::get('/c/{community}/', [CommunityController::class, 'show']);
 
 // Protected routes
@@ -30,8 +32,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // Post actions
     Route::post('/c/{community}/post/submit', [PostController::class, 'store']);
-    Route::put('post/{post}/edit', [PostController::class, 'update']);
-    Route::delete('post/{post}/delete', [PostController::class, 'destroy']);
+    Route::put('/post/{post}/edit', [PostController::class, 'update']);
+    Route::delete('/post/{post}/delete', [PostController::class, 'destroy']);
     Route::put('/post/{post}/add/{reaction?}', [PostController::class, 'addReact']);
     Route::put('/post/{post}/remove/{reaction?}', [PostController::class, 'removeReact']);
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommunityRequest;
+use App\Http\Resources\byHotCommunity;
+use App\Http\Resources\byNewCommunity;
+use App\Http\Resources\CommunityByNewResourceCollection;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use App\Services\CommunityService;
@@ -16,11 +19,19 @@ class CommunityController extends Controller
         return Community::select('id', 'name')->get();
     }
 
-    public function show(CommunityService $service, Community $community): CommunityResource
+    public function showByNew(CommunityService $service, Community $community): byNewCommunity
     {
-        return $service->showCommunity($community->id);
+        return $service->showCommunityByNew($community->id);
+    }
+    public function showByHot(CommunityService $service, Community $community): byHotCommunity
+    {
+        return $service->showCommunityByHot($community->id);
     }
 
+    public function search(CommunityService $service, string $input)
+    {
+        return $service->searchCommunity($input);
+    }
     public function store(CommunityRequest $request, CommunityService $service)
     {
         return $service->storeCommunity($request->name, $request->description);
