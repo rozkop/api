@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserProfileController;
+use App\Http\Controllers\Api\SocialiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Auth routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login/{provider}/redirect', [SocialiteController::class, 'redirect']);
+Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback']);
+
 
 // Public routes
 Route::get('/', [PostController::class, 'hotSort']);
