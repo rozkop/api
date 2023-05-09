@@ -20,6 +20,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
 Route::get('/post/{post}/', [PostController::class, 'show']);
+Route::get('/c', [CommunityController::class, 'index']);
 Route::get('/c/{community}/', [CommunityController::class, 'show']);
 
 // Protected routes
