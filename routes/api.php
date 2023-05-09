@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Post actions
-    Route::post('post/submit', [PostController::class, 'store']);
+    Route::post('/c/{community}/post/submit', [PostController::class, 'store']);
     Route::put('post/{post}/edit', [PostController::class, 'update']);
     Route::delete('post/{post}/delete', [PostController::class, 'destroy']);
     Route::put('/post/{post}/add/{reaction?}', [PostController::class, 'addReact']);

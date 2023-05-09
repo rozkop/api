@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
+use App\Models\Community;
 use App\Models\Post;
 use App\Services\PostService;
 use App\Services\VotingService;
@@ -21,9 +22,9 @@ class PostController extends Controller
         return PostResource::collection(Post::get()->paginate());
     }
 
-    public function store(PostRequest $request, PostService $service)
+    public function store(PostRequest $request, PostService $service, Community $community)
     {
-        return $service->storePost($request->title, $request->text, $request->community_id);
+        return $service->storePost($request->title, $request->text, $community);
     }
 
     public function show(Post $post, PostService $service): PostResource

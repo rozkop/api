@@ -18,6 +18,7 @@ class Community extends Model implements ReactableInterface
     protected $fillable =
     [
         'name',
+        'user_id',
         'description',
         'slug',
         'favourite_count',

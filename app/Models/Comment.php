@@ -16,6 +16,8 @@ class Comment extends Model implements ReactableInterface
         'text',
         'rating',
         'rating',
+        'user_id',
+        'post_id',
     ];
 
     public function post(): BelongsTo

@@ -15,7 +15,6 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'community_id' => ['required'],
             'text' => ['required'],
         ];
     }

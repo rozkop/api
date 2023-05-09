@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\BaseResource;
 use App\Http\Resources\PostResource;
+use App\Models\Community;
 use App\Models\Post;
 
 class PostService
@@ -15,14 +16,14 @@ class PostService
         return PostResource::make($post);
     }
 
-    public function storePost(string $title, string $text, string $community_id): PostResource
+    public function storePost(string $title, string $text, Community $community): PostResource
     {
         $user_id = auth('sanctum')->id();
 
         $post = Post::create([
             'title' => $title,
             'text' => $text,
-            'community_id' => $community_id,
+            'community_id' => $community->id,
             'user_id' => $user_id,
         ]);
 
