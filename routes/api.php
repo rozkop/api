@@ -19,6 +19,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Public routes
 Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
+Route::get('/post/{post}', [PostController::class, 'show']);
+
 Route::get('/c', [CommunityController::class, 'index']);
 Route::get('/c/{community}/hot', [CommunityController::class, 'showByHot']);
 Route::get('/c/{community}/new', [CommunityController::class, 'showByNew']);
@@ -38,13 +40,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/post/{post}/remove/{reaction?}', [PostController::class, 'removeReact']);
     Route::put('/post/{post}/report', [PostController::class, 'report']);
     Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
-    
+
     // Comment actions
     Route::post('/post/{post}/comments/submit', [CommentController::class, 'store']);
     Route::delete('/post/comments/{comment}/delete', [CommentController::class, 'destroy']);
     Route::put('/post/{post}/comments/{comment}/add/{reaction?}', [CommentController::class, 'addReact']);
     Route::put('/post/{post}/comments/{comment}/remove/{reaction?}', [CommentController::class, 'removeReact']);
-    
+
 
     //Community actions
     Route::put('/c/{community}/add', [CommunityController::class, 'addFavourite']);
