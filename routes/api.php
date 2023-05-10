@@ -30,8 +30,7 @@ Route::get('/new', [PostController::class, 'newSort']);
 Route::get('/post/{post}', [PostController::class, 'show']);
 
 Route::get('/c', [CommunityController::class, 'index']);
-Route::get('/c/{community:slug}/hot', [CommunityController::class, 'showByHot']);
-Route::get('/c/{community:slug}/new', [CommunityController::class, 'showByNew']);
+Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
 Route::get('/c/search/{input}', [CommunityController::class, 'search']);
 Route::get('/c/{community:slug}/', [CommunityController::class, 'index']);
 

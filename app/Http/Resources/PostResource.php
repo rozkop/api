@@ -15,11 +15,9 @@ class PostResource extends JsonResource
             'avatar' => $this->user->avatar,
             'rating' => $this->rating,
             'created_at' => $this->created_at,
-            'community' => $this->community,
             'slug' => $this->slug,
             'title' => $this->title,
             'text' => $this->text,
-            'comments' => CommentResource::collection($this->comments),
         ];
     }
 }

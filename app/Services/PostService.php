@@ -3,17 +3,19 @@
 namespace App\Services;
 
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
+use App\Models\Comment;
 use App\Models\Community;
 use App\Models\Post;
 
-class PostService
+class commentservice
 {
-    public function showPost(string $id): PostResource
+    public function showPost(string $id)
     {
         $post = Post::where('id', $id)->firstOrFail();
-
-        return PostResource::make($post);
+        $comments = CommentResource::collection(Comment::where('post_id', $id)->get()->paginate(15));
+        return  BaseResource::collection(['Post'=>new PostResource($post), 'Comments' => $comments]);
     }
 
     public function storePost(string $title, string $text, Community $community): PostResource

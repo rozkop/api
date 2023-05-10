@@ -6,21 +6,33 @@ use App\Http\Resources\BaseResource;
 use App\Http\Resources\byHotCommunity;
 use App\Http\Resources\byNewCommunity;
 use App\Http\Resources\CommunityResource;
+use App\Http\Resources\PostResource;
 use App\Models\Community;
+use App\Models\Post;
 
 
 class CommunityService
 {
-    public function showCommunityByNew(string $id): byNewCommunity
+    public function showCommunity(string $id, $sortField)
     {
         $community = Community::where('id', $id)->firstOrFail();
-        return  new byNewCommunity($community);
+        switch($sortField)
+        {
+            case 'hot':
+            { 
+                $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('rating', 'desc')->get()->paginate(15));
+                return  BaseResource::collection(['Community'=>new CommunityResource($community), 'Posts' => $posts]);
+            }
+            case 'new':
+                { 
+                    $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
+                    return  BaseResource::collection(['Community'=>new CommunityResource($community), 'Posts' => $posts]);
+                }
+            default: 
+                $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
+                return  BaseResource::collection(['Community'=> new CommunityResource($community), 'Posts' => $posts]);
 
-    }
-    public function showCommunityByHot(string $id): byHotCommunity
-    {
-        $community = Community::where('id', $id)->firstOrFail();
-        return  new byHotCommunity($community);
+        }
 
     }
 
