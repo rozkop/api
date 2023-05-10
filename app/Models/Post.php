@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-
 class Post extends Model implements ReactableInterface
 {
     use HasFactory, SoftDeletes, Reactable;

@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
-
-
 
 class CommunityRequest extends FormRequest
 {
@@ -21,5 +18,4 @@ class CommunityRequest extends FormRequest
             'description' => ['required'],
         ];
     }
-
 }

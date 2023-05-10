@@ -3,34 +3,33 @@
 namespace App\Services;
 
 use App\Http\Resources\BaseResource;
-use App\Http\Resources\byHotCommunity;
-use App\Http\Resources\byNewCommunity;
 use App\Http\Resources\CommunityResource;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
-
 
 class CommunityService
 {
     public function showCommunity(string $id, $sortField)
     {
         $community = Community::where('id', $id)->firstOrFail();
-        switch($sortField)
-        {
+        switch ($sortField) {
             case 'hot':
-            { 
+
                 $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('rating', 'desc')->get()->paginate(15));
-                return  BaseResource::collection(['Community'=>new CommunityResource($community), 'Posts' => $posts]);
-            }
+
+                return BaseResource::collection(['Community' => new CommunityResource($community), 'Posts' => $posts]);
+
             case 'new':
-                { 
-                    $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
-                    return  BaseResource::collection(['Community'=>new CommunityResource($community), 'Posts' => $posts]);
-                }
-            default: 
+
                 $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
-                return  BaseResource::collection(['Community'=> new CommunityResource($community), 'Posts' => $posts]);
+
+                return BaseResource::collection(['Community' => new CommunityResource($community), 'Posts' => $posts]);
+
+            default:
+                $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
+
+                return BaseResource::collection(['Community' => new CommunityResource($community), 'Posts' => $posts]);
 
         }
 
@@ -39,8 +38,9 @@ class CommunityService
     public function searchCommunity(string $input)
     {
         $communities = Community::query()
-            ->where('name', 'LIKE', "%" . $input . "%") 
+            ->where('name', 'LIKE', '%'.$input.'%')
             ->get();
+
         return CommunityResource::collection($communities);
     }
 

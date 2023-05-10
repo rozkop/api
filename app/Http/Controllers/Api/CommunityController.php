@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommunityRequest;
-use App\Http\Resources\byHotCommunity;
-use App\Http\Resources\byNewCommunity;
-use App\Http\Resources\CommunityByNewResourceCollection;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use App\Services\CommunityService;
@@ -28,6 +25,7 @@ class CommunityController extends Controller
     {
         return $service->searchCommunity($input);
     }
+
     public function store(CommunityRequest $request, CommunityService $service)
     {
         return $service->storeCommunity($request->name, $request->description);

@@ -6,7 +6,6 @@ use App\Http\Resources\BaseResource;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\User;
 
 class CommentService
 {
@@ -19,6 +18,7 @@ class CommentService
             'post_id' => $post->id,
             'user_id' => $user_id,
         ]);
+
         return CommentResource::make($comment);
     }
 

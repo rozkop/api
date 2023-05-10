@@ -19,6 +19,7 @@ class AuthService
 
         $token = $user->createToken('rozkop')->plainTextToken;
         event(new Registered($user));
+
         return BaseResource::make([
             'user' => $user,
             'token' => $token,
@@ -40,5 +41,4 @@ class AuthService
             'token' => $token,
         ]);
     }
-
 }

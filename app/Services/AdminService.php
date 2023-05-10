@@ -16,30 +16,35 @@ class AdminService
     public function getTrashedPosts()
     {
         $posts = Post::onlyTrashed()->get();
+
         return PostResource::collection($posts);
     }
 
     public function getTrashedCommunities()
     {
         $communities = Community::onlyTrashed()->get();
+
         return CommunityResource::collection($communities);
     }
 
     public function getTrashedUsers()
     {
         $users = User::onlyTrashed()->get();
+
         return UserResource::collection($users);
     }
 
     public function getReportedPosts()
     {
-        $posts = Post::where('reports' .'>'. 0)->get();
+        $posts = Post::where('reports'.'>'. 0)->get();
+
         return PostResource::collection($posts);
     }
 
     public function restoreTrashed(Model $model)
     {
         $model->withTrashed()->restore();
+
         return BaseResource::make(['message' => 'Recovered successfully']);
     }
 }

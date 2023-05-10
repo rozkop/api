@@ -14,6 +14,7 @@ class PostResource extends JsonResource
             'user' => $this->user->name,
             'avatar' => $this->user->avatar,
             'rating' => $this->rating,
+            'count_comments' => CommentResource::collection($this->comments)->count(),
             'created_at' => $this->created_at,
             'slug' => $this->slug,
             'title' => $this->title,

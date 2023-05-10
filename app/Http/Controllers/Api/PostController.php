@@ -28,9 +28,9 @@ class PostController extends Controller
         return $service->storePost($request->title, $request->text, $community);
     }
 
-    public function show(Post $post, PostService $service): PostResource
+    public function show(Post $post, PostService $service)
     {
-        return $service->showPost($post->id);
+        return $service->showPost($post);
     }
 
     public function update(PostRequest $request, Post $post, PostService $service): PostResource

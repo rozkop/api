@@ -4,10 +4,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\Api\SocialiteController;
+use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\EmailVerificationController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +21,6 @@ Route::get('/login/{provider}/redirect', [SocialiteController::class, 'redirect'
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback']);
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
-
 
 // Public routes
 Route::get('/', [PostController::class, 'hotSort']);
@@ -53,7 +51,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/post/comments/{comment}/delete', [CommentController::class, 'destroy']);
     Route::put('/post/{post}/comments/{comment}/add/{reaction?}', [CommentController::class, 'addReact']);
     Route::put('/post/{post}/comments/{comment}/remove/{reaction?}', [CommentController::class, 'removeReact']);
-
 
     //Community actions
     Route::put('/c/{community}/add', [CommunityController::class, 'addFavourite']);
