@@ -30,7 +30,7 @@ class PostController extends Controller
 
     public function show(Post $post, PostService $service)
     {
-        return $service->showPost($post);
+        return $service->showPost($post->id);
     }
 
     public function update(PostRequest $request, Post $post, PostService $service): PostResource
