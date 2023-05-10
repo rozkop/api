@@ -21,6 +21,7 @@ class CommunityResource extends JsonResource
             'user' => $this->user->name,
             'slug' => $this->slug,
             'name' => $this->name,
+            'color' => $this->color,
             'description' => $this->description,
 
         ];
