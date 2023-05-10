@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
+
+use App\Models\User;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Validator;
+
 
 class SocialiteController extends Controller
 {
@@ -17,7 +18,18 @@ class SocialiteController extends Controller
 
     protected function callback($provider)
     {
-      $user = Socialite::driver($provider)->stateless()->user();
-      dd($user);
+      $socialUser = Socialite::driver($provider)->stateless()->user();
+      // dd($socialUser);
+      $user = User::updateOrCreate([
+        'provider_id' => $socialUser->id,
+        'provider' => $provider,
+    ], [
+        'name' => $socialUser->nickname,
+        'email' => $socialUser->email,
+        'provider_token' => $socialUser->token,
+    ]);
+    Auth::login($user);
+ 
+    return redirect('/api');
     }
 }
