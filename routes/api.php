@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CommunityController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\Api\SocialiteController;
+use App\Http\Controllers\EmailVerificationController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/login/{provider}/redirect', [SocialiteController::class, 'redirect']);
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback']);
+
+Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
 
 
 // Public routes

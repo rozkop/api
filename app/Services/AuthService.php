@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\BaseResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -17,7 +18,7 @@ class AuthService
         ]);
 
         $token = $user->createToken('rozkop')->plainTextToken;
-
+        event(new Registered($user));
         return BaseResource::make([
             'user' => $user,
             'token' => $token,
@@ -39,4 +40,5 @@ class AuthService
             'token' => $token,
         ]);
     }
+
 }
