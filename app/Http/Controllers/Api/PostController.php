@@ -40,9 +40,9 @@ class PostController extends Controller
         return $service->updatePost($request->title, $request->text, $post->id);
     }
 
-    public function react(ReactionService $service, Post $post)
+    public function react(ReactionService $service, Post $post, string $reaction)
     {
-        return $service->react($post);
+        return $service->react($post, $reaction);
     }
 
     public function destroy(Post $post, PostService $service)

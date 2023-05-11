@@ -33,9 +33,10 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public function ratingUpdate(Post $post)
+    public function getReactions()
     {
-        return $post->rating = $post->viaLoveReactant()->getReactionTotal()->getWeight();
+        return $this->update([$this->rating = $this->reaction_summary]);
+
     }
 
     public static function slugger(Post $post)

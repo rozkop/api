@@ -16,9 +16,9 @@ class CommentController extends Controller
         return $service->storeComment($request->text, $post);
     }
 
-    public function react(ReactionService $service, Post $post, Comment $comment)
+    public function react(ReactionService $service, Post $post, Comment $comment, string $reaction)
     {
-        return $service->react($comment);
+        return $service->react($comment, $reaction);
     }
 
     public function destroy(Comment $comment, CommentService $service)

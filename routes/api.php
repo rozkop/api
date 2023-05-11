@@ -41,14 +41,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/c/{community}/post/submit', [PostController::class, 'store']);
     Route::put('/post/{post}/edit', [PostController::class, 'update']);
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy']);
-    Route::put('/post/{post}/react', [PostController::class, 'react']);
+    Route::put('/post/{post}/react/{reaction?}', [PostController::class, 'react']);
     Route::put('/post/{post}/report', [PostController::class, 'report']);
     Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
 
     // Comment actions
     Route::post('/post/{post}/comments/submit', [CommentController::class, 'store']);
     Route::delete('/post/comments/{comment}/delete', [CommentController::class, 'destroy']);
-    Route::put('/post/{post}/comments/{comment}/react', [CommentController::class, 'react']);
+    Route::put('/post/{post}/comments/{comment}/react/{reaction?}', [CommentController::class, 'react']);
 
     //Community actions
     Route::put('/c/{community}/react', [CommunityController::class, 'react']);

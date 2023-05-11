@@ -16,9 +16,20 @@ class UserProfileService
     public function showUser()
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        $posts = PostResource::collection(Post::where('user_id', $user->id)->get());
-        $communities = CommunityResource::collection(Community::where('user_id', $user->id)->get());
-        return BaseResource::make(['User' => new UserResource($user), 'User posts' => $posts, 'User Communities' => $communities]);
+        
+        $owned_posts = PostResource::collection(Post::where('user_id', $user->id)->get());
+        $owned_communities = CommunityResource::collection(Community::where('user_id', $user->id)->get());
+
+        $liked_posts = PostResource::collection(Post::whereReactedBy()->get());
+        $liked_communities = CommunityResource::collection(Community::whereReactedBy()->get());
+        
+        return BaseResource::make([
+            'User' => new UserResource($user),
+            'User posts' => $owned_posts,
+            'User communities' => $owned_communities,
+            'User liked posts' => $liked_posts,
+            'User liked communities' => $liked_communities,
+        ]);
     }
     public function updateUser(UserRequest $request): BaseResource
     {

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('text')->nullable();
-            $table->integer('rating')->default(0);
+            $table->json('rating')->nullable();
             $table->integer('reports')->default(0);
             $table->timestamps();
             $table->softDeletes();

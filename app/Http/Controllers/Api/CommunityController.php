@@ -40,7 +40,7 @@ class CommunityController extends Controller
 
     public function react(ReactionService $service, Community $community)
     {
-        return $service->react($community);
+        return $service->react($community, 'like');
     }
 
 
