@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //User actions
     Route::put('/user/update', [UserProfileController::class, 'update']);
+    Route::get('/user/show', [UserProfileController::class, 'show']);
     Route::group(['middleware' => ['role:admin']], function () {
         Route::put('user/{user}/givemod', [UserProfileController::class, 'giveModerator']);
         Route::put('user/{user}/removemod', [UserProfileController::class, 'removeModerator']);

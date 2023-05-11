@@ -4,10 +4,22 @@ namespace App\Services;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\CommunityResource;
+use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
+use App\Models\Community;
+use App\Models\Post;
 use App\Models\User;
 
 class UserProfileService
 {
+    public function showUser()
+    {
+        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
+        $posts = PostResource::collection(Post::where('user_id', $user->id)->get());
+        $communities = CommunityResource::collection(Community::where('user_id', $user->id)->get());
+        return BaseResource::make(['User' => new UserResource($user), 'User posts' => $posts, 'User Communities' => $communities]);
+    }
     public function updateUser(UserRequest $request): BaseResource
     {
         $user_id = auth('sanctum')->id();

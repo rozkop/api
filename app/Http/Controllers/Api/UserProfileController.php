@@ -11,12 +11,9 @@ use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
 {
-    public function show(): UserResource
+    public function show(UserProfileService $service)
     {
-        $user_id = auth('sanctum')->id();
-        $user = User::where('id', $user_id)->firstOrFail();
-
-        return UserResource::make($user);
+        return $service->showUser();
     }
 
     public function update(UserRequest $request, UserProfileService $service): BaseResource

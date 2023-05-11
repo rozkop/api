@@ -23,7 +23,6 @@ class User extends Authenticatable implements ReacterableInterface, MustVerifyEm
         'password',
         'gender',
         'country',
-        'avatar',
         'provider_id',
         'provider_token',
         'provider',
