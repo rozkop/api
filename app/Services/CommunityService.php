@@ -27,7 +27,7 @@ class CommunityService
                 return BaseResource::collection(['Community' => new CommunityResource($community), 'Posts' => $posts]);
 
             default:
-                $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('created_at', 'desc')->get()->paginate(15));
+                $posts = PostResource::collection(Post::where('community_id', $id)->orderBy('rating', 'desc')->get()->paginate(15));
 
                 return BaseResource::collection(['Community' => new CommunityResource($community), 'Posts' => $posts]);
 

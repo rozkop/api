@@ -16,7 +16,7 @@ class CommunityController extends Controller
         return Community::select('id', 'name')->get();
     }
 
-    public function show(CommunityService $service, Community $community, $sortField)
+    public function show(CommunityService $service, Community $community, $sortField = '')
     {
         return $service->showCommunity($community->id, $sortField);
     }
