@@ -15,9 +15,9 @@ class PostService
     {
         $post = Post::where('id', $id)->firstOrFail();
         $comments = CommentResource::collection(Comment::where('post_id', $id)->get()->paginate(15));
-        $reacted = $post->reacted(auth('sanctum')->user());
+        // $reacted = $post->reacted(auth('sanctum')->user());
 
-        return BaseResource::collection(['Post' => new PostResource($post),'Current user reaction' => $reacted, 'Comments' => $comments]);
+        return BaseResource::collection(['Post' => new PostResource($post), 'Comments' => $comments]);
     }
 
     public function storePost(string $title, string $text, Community $community): PostResource
