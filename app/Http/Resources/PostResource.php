@@ -11,8 +11,7 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user->id,
-            'name' => $this->user->name,
+            'user_id' => ['id' => $this->user->id, 'name' => $this->user->name],
             'rating' => $this->rating,
             'community' => new CommunityResource($this->community),
             'count_comments' => CommentResource::collection($this->comments)->count(),
