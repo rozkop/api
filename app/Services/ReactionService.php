@@ -7,9 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReactionService
 {
-    public function react(Model $model): BaseResource
+    public function react(Model $model,string $reaction): BaseResource
     {
-            $model->toggleReaction('like');
-            return BaseResource::make(['message' => 'Success']);
+            switch($reaction)
+            {
+                case 'like':
+                    $model->toggleReaction('like');
+                    $model->getReactions();
+                    return BaseResource::make(['message' => 'Success']);
+                case 'dislike':
+                    $model->toggleReaction('dislike');
+                    $model->getReactions();
+                    return BaseResource::make(['message' => 'Success']);
+                default:
+                    return BaseResource::make(['message' => 'Bad reaction']);
+            }
+
     }
 }
