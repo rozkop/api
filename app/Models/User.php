@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
-use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,9 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements ReacterableInterface, MustVerifyEmail
+class User extends Authenticatable implements  MustVerifyEmail, ReactsInterface
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Reacterable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, Reacts;
 
     protected $fillable = [
         'name',

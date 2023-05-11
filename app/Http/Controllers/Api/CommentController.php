@@ -7,7 +7,7 @@ use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
-use App\Services\VotingService;
+use App\Services\ReactionService;
 
 class CommentController extends Controller
 {
@@ -16,14 +16,9 @@ class CommentController extends Controller
         return $service->storeComment($request->text, $post);
     }
 
-    public function addReact(VotingService $service, Post $post, Comment $comment, string $reaction)
+    public function react(ReactionService $service, Post $post, Comment $comment)
     {
-        return $service->vote($comment, $reaction);
-    }
-
-    public function removeReact(VotingService $service, Post $post, Comment $comment, string $reaction)
-    {
-        return $service->removeReaction($comment, $reaction);
+        return $service->react($comment);
     }
 
     public function destroy(Comment $comment, CommentService $service)

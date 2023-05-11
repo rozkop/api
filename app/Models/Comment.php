@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

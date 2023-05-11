@@ -7,7 +7,7 @@ use App\Http\Requests\CommunityRequest;
 use App\Http\Resources\CommunityResource;
 use App\Models\Community;
 use App\Services\CommunityService;
-use App\Services\VotingService;
+use App\Services\ReactionService;
 
 class CommunityController extends Controller
 {
@@ -38,15 +38,11 @@ class CommunityController extends Controller
         return $service->updateCommunity($request->name, $request->description, $community->id);
     }
 
-    public function addFavourite(VotingService $service, Community $community)
+    public function react(ReactionService $service, Community $community)
     {
-        return $service->vote($community, 'Like');
+        return $service->react($community);
     }
 
-    public function removeFavorite(VotingService $service, Community $community)
-    {
-        return $service->removeReaction($community, 'Like');
-    }
 
     public function destroy(Community $community, CommunityService $service)
     {

@@ -9,7 +9,7 @@ use App\Models\Community;
 use App\Models\Post;
 use App\Services\AdminService;
 use App\Services\PostService;
-use App\Services\VotingService;
+use App\Services\ReactionService;
 
 class PostController extends Controller
 {
@@ -40,14 +40,9 @@ class PostController extends Controller
         return $service->updatePost($request->title, $request->text, $post->id);
     }
 
-    public function addReact(VotingService $service, Post $post, string $reaction)
+    public function react(ReactionService $service, Post $post)
     {
-        return $service->vote($post, $reaction);
-    }
-
-    public function removeReact(VotingService $service, Post $post, string $reaction)
-    {
-        return $service->removeReaction($post, $reaction);
+        return $service->react($post);
     }
 
     public function destroy(Post $post, PostService $service)
