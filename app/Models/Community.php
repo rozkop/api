@@ -42,9 +42,10 @@ class Community extends Model implements ReactableInterface
         });
     }
 
-    public static function ratingUpdate(Community $community)
+    public function getReactions()
     {
-        return $community->favourite_count = $community->viaLoveReactant()->getReactionTotal()->getWeight();
+        return $this->update([$this->rating = $this->reaction_summary]);
+
     }
 
     public static function slugger(Community $community)
