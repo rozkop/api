@@ -54,7 +54,7 @@ class PostController extends Controller
 
     public function report(Post $post, PostService $service)
     {
-        return $service->reportPost($post);
+        return $service->reportPost($post->id);
     }
 
     public function showTrashed(AdminService $service)
