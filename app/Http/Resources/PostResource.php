@@ -11,7 +11,7 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => $this->user->name,
+            'user' => ['id' => $this->user->id, 'name' => $this->user->name],
             'avatar' => $this->user->avatar,
             'rating' => $this->rating,
             'community' => new CommunityResource($this->community),
