@@ -25,8 +25,7 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 've
 
 // Public routes
 Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
-    Route::get('/', [PostController::class, 'hotSort']);
-    Route::get('/new', [PostController::class, 'newSort']);
+    Route::get('/{sortField?}', [PostController::class, 'showPosts']);
     Route::get('/post/{post}', [PostController::class, 'show']);
 
     Route::get('/c', [CommunityController::class, 'index']);

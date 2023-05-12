@@ -17,7 +17,6 @@ class SocialiteController extends Controller
     protected function callback($provider)
     {
         $socialUser = Socialite::driver($provider)->stateless()->user();
-        // dd($socialUser);
         $user = User::updateOrCreate([
             'provider_id' => $socialUser->id,
             'provider' => $provider,

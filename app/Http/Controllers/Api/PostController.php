@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Http\Resources\BaseResource;
 use App\Http\Resources\PostResource;
 use App\Models\Community;
 use App\Models\Post;
@@ -13,14 +14,15 @@ use App\Services\ReactionService;
 
 class PostController extends Controller
 {
-    public function hotSort()
+    public function showPosts($sortField)
     {
-        return PostResource::collection(Post::get()->paginate());
-    }
+        switch ($sortField) {
+            case 'hot':
+                return  PostResource::collection(Post::orderBy('rating', 'desc')->get()->paginate(15));
 
-    public function newSort()
-    {
-        return PostResource::collection(Post::get()->paginate());
+            case 'new':
+                return  PostResource::collection(Post::orderBy('created_at', 'desc')->get()->paginate(15));
+            }
     }
 
     public function store(PostRequest $request, PostService $service, Community $community)
