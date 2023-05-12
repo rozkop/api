@@ -17,10 +17,10 @@ class PostController extends Controller
     public function showPosts($sortField= '')
     {
         switch ($sortField) {
-            case 'hot':
+            case 'hot' && '':
                 return  PostResource::collection(Post::orderBy('rating', 'desc')->get()->paginate(15));
 
-            case 'new' && '':
+            case 'new':
                 return  PostResource::collection(Post::orderBy('created_at', 'desc')->get()->paginate(15));
             }
     }
