@@ -24,15 +24,16 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback'
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
 
 // Public routes
-Route::get('/', [PostController::class, 'hotSort']);
-Route::get('/new', [PostController::class, 'newSort']);
-Route::get('/post/{post}', [PostController::class, 'show'])->middleware(OptionalAuthSanctum::class);
+Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
+    Route::get('/', [PostController::class, 'hotSort']);
+    Route::get('/new', [PostController::class, 'newSort']);
+    Route::get('/post/{post}', [PostController::class, 'show']);
 
-Route::get('/c', [CommunityController::class, 'index']);
-Route::get('/c/{community:name}/{sortField?}', [CommunityController::class, 'show']);
-Route::get('/c/search/{input?}', [CommunityController::class, 'search']);
-Route::get('/c/{community:name}/', [CommunityController::class, 'index']);
-
+    Route::get('/c', [CommunityController::class, 'index']);
+    Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
+    Route::get('/c/search/{input?}', [CommunityController::class, 'search']);
+    Route::get('/c/{community:slug}/', [CommunityController::class, 'index']);
+});
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Auth route

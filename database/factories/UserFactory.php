@@ -18,6 +18,4 @@ class UserFactory extends Factory
             'country' => fake()->country(),
         ];
     }
-
-
 }

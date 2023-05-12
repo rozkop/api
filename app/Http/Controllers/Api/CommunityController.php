@@ -43,7 +43,6 @@ class CommunityController extends Controller
         return $service->react($community, 'like');
     }
 
-
     public function destroy(Community $community, CommunityService $service)
     {
         $this->authorize('delete', $community);

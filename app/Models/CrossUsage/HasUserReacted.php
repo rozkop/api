@@ -6,11 +6,11 @@ trait HasUserReacted
 {
     public function isUserReacting()
     {
-        if(auth('sanctum')->user())
-        {
-            return$this->reacted();
+        if (auth('sanctum')->user()) {
+            return $this->reacted();
+        } else {
+            return ['error' => 'No login user'];
         }
-        else return ['error' => 'No login user'];
 
     }
 }

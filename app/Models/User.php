@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Qirolab\Laravel\Reactions\Traits\Reacts;
-use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,9 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Qirolab\Laravel\Reactions\Contracts\ReactsInterface;
+use Qirolab\Laravel\Reactions\Traits\Reacts;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements  MustVerifyEmail, ReactsInterface
+class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, Reacts;
 

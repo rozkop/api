@@ -16,13 +16,13 @@ class UserProfileService
     public function showUser()
     {
         $user = User::where('id', auth('sanctum')->id())->firstOrFail();
-        
+
         $owned_posts = PostResource::collection(Post::where('user_id', $user->id)->get());
         $owned_communities = CommunityResource::collection(Community::where('user_id', $user->id)->get());
 
         $liked_posts = PostResource::collection(Post::whereReactedBy()->get());
         $liked_communities = CommunityResource::collection(Community::whereReactedBy()->get());
-        
+
         return BaseResource::make([
             'User' => new UserResource($user),
             'User posts' => $owned_posts,
@@ -31,6 +31,7 @@ class UserProfileService
             'User liked communities' => $liked_communities,
         ]);
     }
+
     public function updateUser(UserRequest $request): BaseResource
     {
         $user_id = auth('sanctum')->id();

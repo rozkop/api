@@ -11,10 +11,11 @@ use App\Models\Post;
 
 class PostService
 {
-    public function showPost(string $id,)
+    public function showPost(string $id)
     {
         $post = Post::where('id', $id)->firstOrFail();
         $comments = CommentResource::collection(Comment::where('post_id', $id)->get());
+
         return BaseResource::collection(['Post' => new PostResource($post), 'Comments' => $comments]);
     }
 

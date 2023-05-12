@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\CrossUsage\HasUserReacted;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
-use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use App\Models\CrossUsage\GetReactions;
+use App\Models\CrossUsage\HasUserReacted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Comment extends Model implements ReactableInterface
 {
@@ -25,9 +25,9 @@ class Comment extends Model implements ReactableInterface
     {
         return $this->belongsTo(Post::class);
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
 }

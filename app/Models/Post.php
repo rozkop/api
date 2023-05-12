@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\CrossUsage\GetReactions;
 use App\Models\CrossUsage\HasUserReacted;
-use Qirolab\Laravel\Reactions\Traits\Reactable;
-use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-
-use App\Models\CrossUsage\GetReactions;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Post extends Model implements ReactableInterface
 {
