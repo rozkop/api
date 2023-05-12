@@ -27,6 +27,6 @@ class SocialiteController extends Controller
         ]);
         Auth::login($user);
 
-        return redirect('/api');
+        return redirect('/api/hot');
     }
 }
