@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\BaseResource;
 use App\Models\User;
+use App\Services\AdminService;
 use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
@@ -33,5 +34,10 @@ class UserProfileController extends Controller
     public function removeModerator(UserProfileService $service, User $user): BaseResource
     {
         return $service->removeModeratorRole($user);
+    }
+
+    public function getList(AdminService $service)
+    {
+        return $service->getUsersList();
     }
 }

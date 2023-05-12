@@ -34,16 +34,6 @@ class CommunityService
         }
 
     }
-
-    public function searchCommunity()
-    {
-        if (request('search')) {
-            return Community::where('name', 'like', '%' . request('search') . '%')->get();
-        } else {
-            return Community::all();
-        }
-    }
-
     public function storeCommunity(string $name, string $description): CommunityResource
     {
         $user_id = auth('sanctum')->id();

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
-use App\QueryBuilders\SearchQuery;
+
 
 class Community extends Model implements ReactableInterface
 {
@@ -44,19 +44,9 @@ class Community extends Model implements ReactableInterface
             $community->slug = Str::slug($community->name);
         });
     }
-
     public static function slugger(Community $community)
     {
         return $community->slug = Str::slug($community->name);
     }
 
-    public static function query(): SearchQuery
-    {
-        return parent::query();
-    }
-
-    public function newEloquentBuilder($query): SearchQuery
-    {
-        return new SearchQuery($query);
-    }
 }

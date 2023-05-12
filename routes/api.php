@@ -31,21 +31,19 @@ Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
 
     Route::get('/c', [CommunityController::class, 'index']);
     Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
-    Route::get('/c/s/', [CommunityController::class, 'search']);
     Route::get('/c/{community:slug}/', [CommunityController::class, 'index']);
-});
+})->scopeBindings();
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Auth route
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Post actions
-    Route::post('/c/{community}/post/submit', [PostController::class, 'store']);
+    Route::post('/c/{community:slug}/post/submit', [PostController::class, 'store']);
     Route::put('/post/{post}/edit', [PostController::class, 'update']);
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy']);
     Route::put('/post/{post}/react/{reaction?}', [PostController::class, 'react']);
     Route::put('/post/{post}/report', [PostController::class, 'report']);
-    // Route::get('/post/{post}', [PostController::class, 'show']);
 
     // Comment actions
     Route::post('/post/{post}/comments/submit', [CommentController::class, 'store']);
@@ -53,10 +51,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/post/{post}/comments/{comment}/react/{reaction?}', [CommentController::class, 'react']);
 
     //Community actions
-    Route::put('/c/{community}/react', [CommunityController::class, 'react']);
+    Route::put('/c/{community:slug}/react', [CommunityController::class, 'react']);
     Route::post('/c/create', [CommunityController::class, 'store']);
-    Route::put('/c/{community}/edit', [CommunityController::class, 'update']);
-    Route::delete('/c/{community}/delete', [CommunityController::class, 'destroy']);
+    Route::put('/c/{community:slug}/edit', [CommunityController::class, 'update']);
+    Route::delete('/c/{community:slug}/delete', [CommunityController::class, 'destroy']);
 
     //User actions
     Route::put('/user/update', [UserProfileController::class, 'update']);
@@ -66,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('user/{user}/removemod', [UserProfileController::class, 'removeModerator']);
         Route::delete('user/{user}/delete', [UserProfileController::class, 'destroy']);
         Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
+        Route::get('user/admin/list', [UserProfileController::class, 'getList']);
     });
 
-});
+})->scopeBindings();

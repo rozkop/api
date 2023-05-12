@@ -36,9 +36,13 @@ class AdminService
 
     public function getReportedPosts()
     {
-        $posts = Post::where('reports'.'>'. 0)->get();
-
+        $posts = Post::where('reports'.'>'. 0)->orderBy('rating', 'desc')->get();
         return PostResource::collection($posts);
+    }
+
+    public function getUsersList()
+    {
+        return UserResource::collection(User::get());
     }
 
     public function restoreTrashed(Model $model)

@@ -49,6 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail, ReactsInterface
         return $this->hasMany(Community::class);
     }
 
+    public function getRole()
+    {
+        return $this->getRoleNames();
+    }
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
