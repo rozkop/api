@@ -19,6 +19,7 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'text' => $this->text,
+            'is_user_reacting' => $this->isUserReacting(),
         ];
     }
 }

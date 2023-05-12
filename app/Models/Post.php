@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CrossUsage\HasUserReacted;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,9 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
+use App\Models\CrossUsage\GetReactions;
+
 class Post extends Model implements ReactableInterface
 {
-    use HasFactory, SoftDeletes, Reactable;
+    use HasFactory, SoftDeletes, Reactable, GetReactions, HasUserReacted;
 
     protected $fillable =
     [
@@ -31,12 +34,6 @@ class Post extends Model implements ReactableInterface
         static::creating(function ($post) {
             $post->slug = Str::slug($post->title);
         });
-    }
-
-    public function getReactions()
-    {
-        return $this->update([$this->rating = $this->reaction_summary]);
-
     }
 
     public static function slugger(Post $post)

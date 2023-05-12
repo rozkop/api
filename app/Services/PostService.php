@@ -14,14 +14,8 @@ class PostService
     public function showPost(string $id,)
     {
         $post = Post::where('id', $id)->firstOrFail();
-        $comments = [Comment::where('post_id', $id)->get() ];
-        if(auth('sanctum')->user())
-        {
-            $reacted = $post->reacted()->type;
-        }
-        else $reacted = 'No login user';
-
-        return BaseResource::collection(['Post' => new PostResource($post), 'is reacted by user' => $reacted, 'Comments' => $comments]);
+        $comments = CommentResource::collection(Comment::where('post_id', $id)->get());
+        return BaseResource::collection(['Post' => new PostResource($post), 'Comments' => $comments]);
     }
 
     public function storePost(string $title, string $text, Community $community): PostResource

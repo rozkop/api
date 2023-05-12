@@ -23,6 +23,7 @@ class CommunityResource extends JsonResource
             'name' => $this->name,
             'color' => $this->color,
             'description' => $this->description,
+            'is_user_reacting' => $this->isUserReacting(),
 
         ];
     }

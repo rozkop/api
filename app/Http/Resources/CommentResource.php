@@ -21,6 +21,7 @@ class CommentResource extends JsonResource
             'user' => ['id' => $this->user->id, 'name' => $this->user->name],
             'text' => $this->text,
             'rating' => $this->rating,
+            'is_user_reacting' => $this->isUserReacting(),
         ];
     }
 }
