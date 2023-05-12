@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SocialiteController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Middleware\OptionalAuthSanctum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,11 +26,11 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 've
 // Public routes
 Route::get('/', [PostController::class, 'hotSort']);
 Route::get('/new', [PostController::class, 'newSort']);
-Route::get('/post/{post}', [PostController::class, 'show']);
+Route::get('/post/{post}', [PostController::class, 'show'])->middleware(OptionalAuthSanctum::class);
 
 Route::get('/c', [CommunityController::class, 'index']);
 Route::get('/c/{community:name}/{sortField?}', [CommunityController::class, 'show']);
-Route::get('/c/search/{input}', [CommunityController::class, 'search']);
+Route::get('/c/search/{input?}', [CommunityController::class, 'search']);
 Route::get('/c/{community:name}/', [CommunityController::class, 'index']);
 
 // Protected routes
@@ -43,7 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/post/{post}/delete', [PostController::class, 'destroy']);
     Route::put('/post/{post}/react/{reaction?}', [PostController::class, 'react']);
     Route::put('/post/{post}/report', [PostController::class, 'report']);
-    Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
+    // Route::get('/post/{post}', [PostController::class, 'show']);
 
     // Comment actions
     Route::post('/post/{post}/comments/submit', [CommentController::class, 'store']);
@@ -63,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::put('user/{user}/givemod', [UserProfileController::class, 'giveModerator']);
         Route::put('user/{user}/removemod', [UserProfileController::class, 'removeModerator']);
         Route::delete('user/{user}/delete', [UserProfileController::class, 'destroy']);
+        Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
     });
 
 });

@@ -41,7 +41,7 @@ class Post extends Model implements ReactableInterface
 
     public static function slugger(Post $post)
     {
-        return $post->slug = Str::slug($post->name);
+        return $post->slug = Str::slug($post->title);
     }
 
     public function community(): BelongsTo

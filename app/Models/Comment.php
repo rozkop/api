@@ -29,6 +29,7 @@ class Comment extends Model implements ReactableInterface
         return $this->belongsTo(User::class);
     }
 
+    public 
     public function getReactions()
     {
         return $this->update([$this->rating = $this->reaction_summary]);

@@ -14,10 +14,14 @@ class PostService
     public function showPost(string $id,)
     {
         $post = Post::where('id', $id)->firstOrFail();
-        $comments = CommentResource::collection(Comment::where('post_id', $id)->get()->paginate(15));
-        // $reacted = $post->reacted(auth('sanctum')->user());
+        $comments = [Comment::where('post_id', $id)->get() ];
+        if(auth('sanctum')->user())
+        {
+            $reacted = $post->reacted()->type;
+        }
+        else $reacted = 'No login user';
 
-        return BaseResource::collection(['Post' => new PostResource($post), 'Comments' => $comments]);
+        return BaseResource::collection(['Post' => new PostResource($post), 'is reacted by user' => $reacted, 'Comments' => $comments]);
     }
 
     public function storePost(string $title, string $text, Community $community): PostResource
@@ -29,6 +33,7 @@ class PostService
             'text' => $text,
             'community_id' => $community->id,
             'user_id' => $user_id,
+
         ]);
 
         return PostResource::make($post);
