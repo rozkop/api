@@ -36,7 +36,7 @@ class AdminService
 
     public function getReportedPosts()
     {
-        $posts = Post::where('reports'.'>'. 0)->orderBy('rating', 'desc')->get();
+        $posts = Post::where('reports','>', 0)->orderBy('reports', 'desc')->get();
         return PostResource::collection($posts);
     }
 

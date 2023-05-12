@@ -61,4 +61,9 @@ class PostController extends Controller
     {
         return $service->getTrashedPosts();
     }
+
+    public function showReported(AdminService $service)
+    {
+        return $service->getReportedPosts();
+    }
 }

@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('user/{user}/delete', [UserProfileController::class, 'destroy']);
         Route::get('/post/admin/trashed', [PostController::class, 'showTrashed']);
         Route::get('user/admin/list', [UserProfileController::class, 'getList']);
+        Route::get('post/admin/reported', [PostController::class, 'showReported']);
     });
 
 })->scopeBindings();
