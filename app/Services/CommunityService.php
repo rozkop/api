@@ -35,13 +35,13 @@ class CommunityService
 
     }
 
-    public function searchCommunity(string $input)
+    public function searchCommunity()
     {
-        $communities = Community::query()
-            ->where('name', 'LIKE', '%'.$input.'%')
-            ->get();
-
-        return CommunityResource::collection($communities);
+        if (request('search')) {
+            return Community::where('name', 'like', '%' . request('search') . '%')->get();
+        } else {
+            return Community::all();
+        }
     }
 
     public function storeCommunity(string $name, string $description): CommunityResource

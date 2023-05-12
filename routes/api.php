@@ -31,7 +31,7 @@ Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
 
     Route::get('/c', [CommunityController::class, 'index']);
     Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
-    Route::get('/c/search/{input?}', [CommunityController::class, 'search']);
+    Route::get('/c/s/', [CommunityController::class, 'search']);
     Route::get('/c/{community:slug}/', [CommunityController::class, 'index']);
 });
 // Protected routes

@@ -21,9 +21,9 @@ class CommunityController extends Controller
         return $service->showCommunity($community->id, $sortField);
     }
 
-    public function search(CommunityService $service, string $input)
+    public function search(CommunityService $service)
     {
-        return $service->searchCommunity($input);
+        return $service->searchCommunity();
     }
 
     public function store(CommunityRequest $request, CommunityService $service)
