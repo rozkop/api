@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SocialiteController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Middleware\OptionalAuthSanctum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::get('/login/{provider}/redirect', [SocialiteController::class, 'redirect'
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback']);
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
+Route::post('/login/forgotpassword', [ForgotPasswordController::class, 'forgotPassword']);
+Route::post('/login/reset', [ForgotPasswordController::class, 'forgotPassword'])->name('password.reset');
 
 // Public routes
 Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
