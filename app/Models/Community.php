@@ -25,7 +25,7 @@ class Community extends Model implements ReactableInterface
         'user_id',
         'description',
         'slug',
-        'favourite_count',
+        'rating',
         'color,',
     ];
 
