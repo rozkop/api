@@ -9,7 +9,7 @@ class PostPolicy
 {
     public function update(User $user, Post $post): bool
     {
-        if ($user->id === $post->user_id || $user->can('edit any posts')) {
+        if ($user->id === $post->user_id) {
             return true;
         } else {
             return false;
@@ -18,7 +18,7 @@ class PostPolicy
 
     public function delete(User $user, Post $post): bool
     {
-        if ($user->id === $post->user_id || $user->can('delete any posts')) {
+        if ($user->id === $post->user_id || $user->can('delete any post')) {
             return true;
         } else {
             return false;

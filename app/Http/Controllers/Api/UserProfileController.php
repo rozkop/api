@@ -5,18 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\BaseResource;
-use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Services\AdminService;
 use App\Services\UserProfileService;
 
 class UserProfileController extends Controller
 {
-    public function show(): UserResource
+    public function show(UserProfileService $service)
     {
-        $user_id = auth('sanctum')->id();
-        $user = User::where('id', $user_id)->firstOrFail();
-
-        return UserResource::make($user);
+        return $service->showUser();
     }
 
     public function update(UserRequest $request, UserProfileService $service): BaseResource
@@ -37,5 +34,10 @@ class UserProfileController extends Controller
     public function removeModerator(UserProfileService $service, User $user): BaseResource
     {
         return $service->removeModeratorRole($user);
+    }
+
+    public function getList(AdminService $service)
+    {
+        return $service->getUsersList();
     }
 }

@@ -55,6 +55,18 @@ services:
     networks:
       - app-network
 
+  #Malihog service
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    ports:
+      - ${MAIL_PORT}:1025
+      - ${MAILHOG_DASHBOARD_PORT}:8025
+    networks:
+      - app-network
+    restart: unless-stopped
+
+
 #Docker Networks
 networks:
   app-network:

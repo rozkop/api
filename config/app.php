@@ -182,6 +182,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+        Qirolab\Laravel\Reactions\ReactionsServiceProvider::class,
 
         /*
          * Package Service Providers...

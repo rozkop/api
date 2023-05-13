@@ -2,18 +2,22 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use App\Models\CrossUsage\GetReactions;
+use App\Models\CrossUsage\HasUserReacted;
+use App\QueryBuilders\SearchQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
+
 
 class Community extends Model implements ReactableInterface
 {
-    use HasFactory, SoftDeletes, Reactable;
+    use HasFactory, SoftDeletes, Reactable, GetReactions, HasUserReacted;
 
     protected $fillable =
     [
@@ -41,14 +45,18 @@ class Community extends Model implements ReactableInterface
             $community->slug = Str::slug($community->name);
         });
     }
-
-    public static function ratingUpdate(Community $community)
-    {
-        return $community->favourite_count = $community->viaLoveReactant()->getReactionTotal()->getWeight();
-    }
-
     public static function slugger(Community $community)
     {
         return $community->slug = Str::slug($community->name);
+    }
+    
+    public static function query(): SearchQuery
+    {
+        return parent::query();
+    }
+
+    public function newEloquentBuilder($query): SearchQuery
+    {
+        return new SearchQuery($query);
     }
 }

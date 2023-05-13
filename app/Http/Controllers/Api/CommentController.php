@@ -7,26 +7,21 @@ use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Services\CommentService;
-use App\Services\VotingService;
+use App\Services\ReactionService;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, CommentService $service, Post $post)
+    public function store(CommentService $service, CommentRequest $request, Post $post)
     {
         return $service->storeComment($request->text, $post);
     }
 
-    public function addReact(VotingService $service, Post $post, Comment $comment, string $reaction)
+    public function react(ReactionService $service, Post $post, Comment $comment, string $reaction)
     {
-        return $service->vote($comment, $reaction);
+        return $service->react($comment, $reaction);
     }
 
-    public function removeReact(VotingService $service, Post $post, Comment $comment, string $reaction)
-    {
-        return $service->removeReaction($comment, $reaction);
-    }
-
-    public function destroy(Comment $comment, CommentService $service)
+    public function destroy(Post $post, Comment $comment, CommentService $service)
     {
         $this->authorize('delete', $comment);
 

@@ -9,7 +9,7 @@ class CommunityPolicy
 {
     public function update(User $user, Community $community): bool
     {
-        if ($user->id === $community->user_id || $user->can('edit any communities')) {
+        if ($user->id === $community->user_id) {
             return true;
         } else {
             return false;
@@ -18,7 +18,7 @@ class CommunityPolicy
 
     public function delete(User $user, Community $community): bool
     {
-        if ($user->id === $community->user_id || $user->can('delete any communities')) {
+        if ($user->id === $community->user_id || $user->can('delete any community')) {
             return true;
         } else {
             return false;

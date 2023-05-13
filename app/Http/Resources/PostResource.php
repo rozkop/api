@@ -11,15 +11,15 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-
+            'user' => ['id' => $this->user->id, 'name' => $this->user->name],
             'rating' => $this->rating,
+            'community' => new CommunityResource($this->community),
+            'count_comments' => CommentResource::collection($this->comments)->count(),
             'created_at' => $this->created_at,
-            'community' => $this->community,
             'slug' => $this->slug,
             'title' => $this->title,
             'text' => $this->text,
-            'user' => new UserResource($this->user),
-            'comments' => CommentResource::collection($this->comments),
+            'is_user_reacting' => $this->isUserReacting(),
         ];
     }
 }

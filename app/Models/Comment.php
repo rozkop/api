@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use App\Models\CrossUsage\GetReactions;
+use App\Models\CrossUsage\HasUserReacted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Comment extends Model implements ReactableInterface
 {
-    use HasFactory, Reactable;
+    use HasFactory, Reactable, GetReactions, HasUserReacted;
 
     protected $fillable = [
         'text',
-        'rating',
         'rating',
         'user_id',
         'post_id',
@@ -28,10 +29,5 @@ class Comment extends Model implements ReactableInterface
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function ratingUpdate(Comment $comment)
-    {
-        return $comment->rating = $comment->viaLoveReactant()->getReactionTotal()->getWeight();
     }
 }

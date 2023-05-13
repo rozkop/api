@@ -4,10 +4,34 @@ namespace App\Services;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\CommunityResource;
+use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
+use App\Models\Community;
+use App\Models\Post;
 use App\Models\User;
 
 class UserProfileService
 {
+    public function showUser()
+    {
+        $user = User::where('id', auth('sanctum')->id())->firstOrFail();
+
+        $owned_posts = PostResource::collection(Post::where('user_id', $user->id)->get());
+        $owned_communities = CommunityResource::collection(Community::where('user_id', $user->id)->get());
+
+        $liked_posts = PostResource::collection(Post::whereReactedBy()->get());
+        $liked_communities = CommunityResource::collection(Community::whereReactedBy()->get());
+
+        return BaseResource::make([
+            'user' => new UserResource($user),
+            'user_posts' => $owned_posts,
+            'user_communities' => $owned_communities,
+            'user_liked_posts' => $liked_posts,
+            'user_liked_communities' => $liked_communities,
+        ]);
+    }
+
     public function updateUser(UserRequest $request): BaseResource
     {
         $user_id = auth('sanctum')->id();
@@ -20,17 +44,17 @@ class UserProfileService
                     $user->save();
                     break;
                 case 'country':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->country = $inputValue;
                     $User->save();
                     break;
                 case 'gender':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->gender = $inputValue;
                     $User->save();
                     break;
                 case 'avatar':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->avatar = $inputValue;
                     $User->save();
                 default:

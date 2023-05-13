@@ -18,11 +18,12 @@ class CommunityResource extends JsonResource
             'id' => $this->id,
             'created_at' => $this->created_at,
             'favourite_count' => $this->favourite_count,
-            'user' => new UserResource($this->user),
+            'user' => ['id' => $this->user->id, 'name' => $this->user->name],
             'slug' => $this->slug,
             'name' => $this->name,
+            'color' => $this->color,
             'description' => $this->description,
-            'posts' => PostResource::collection($this->posts),
+            'is_user_reacting' => $this->isUserReacting(),
 
         ];
     }

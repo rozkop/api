@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use Cog\Contracts\Love\Reactable\Models\Reactable as ReactableInterface;
-use Cog\Laravel\Love\Reactable\Models\Traits\Reactable;
+use App\Models\CrossUsage\GetReactions;
+use App\Models\CrossUsage\HasUserReacted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
+use Qirolab\Laravel\Reactions\Traits\Reactable;
 
 class Post extends Model implements ReactableInterface
 {
-    use HasFactory, SoftDeletes, Reactable;
+    use HasFactory, SoftDeletes, Reactable, GetReactions, HasUserReacted;
 
     protected $fillable =
     [
@@ -23,6 +25,7 @@ class Post extends Model implements ReactableInterface
         'rating',
         'user_id',
         'community_id',
+        'reports',
     ];
 
     protected static function booted()
@@ -32,14 +35,9 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public function ratingUpdate(Post $post)
-    {
-        return $post->rating = $post->viaLoveReactant()->getReactionTotal()->getWeight();
-    }
-
     public static function slugger(Post $post)
     {
-        return $post->slug = Str::slug($post->name);
+        return $post->slug = Str::slug($post->title);
     }
 
     public function community(): BelongsTo

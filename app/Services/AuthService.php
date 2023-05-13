@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\BaseResource;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -17,6 +18,7 @@ class AuthService
         ]);
 
         $token = $user->createToken('rozkop')->plainTextToken;
+        event(new Registered($user));
 
         return BaseResource::make([
             'user' => $user,
@@ -26,7 +28,7 @@ class AuthService
 
     public function loginUser(string $email, string $password)
     {
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $email)->firstOrFail();
 
         if (! $user || ! Hash::check($password, $user->password)) {
             return BaseResource::make(['error' => 'Invalid email or password!']);
