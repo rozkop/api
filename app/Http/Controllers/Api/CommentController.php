@@ -21,7 +21,7 @@ class CommentController extends Controller
         return $service->react($comment, $reaction);
     }
 
-    public function destroy(Comment $comment, CommentService $service)
+    public function destroy(Post $post, Comment $comment, CommentService $service)
     {
         $this->authorize('delete', $comment);
 
