@@ -18,11 +18,11 @@ class PostController extends Controller
     {
         switch ($sortField) {
             case 'hot':
-                return  PostResource::collection(Post::orderBy('rating', 'desc')->get());
+                return  PostResource::collection(Post::orderBy('rating', 'desc')->get()->paginate(15));
             case 'new':
-                return  PostResource::collection(Post::orderBy('created_at', 'desc')->get());
+                return  PostResource::collection(Post::orderBy('created_at', 'desc')->get()->paginate(15));
             default :
-                return  PostResource::collection(Post::orderBy('rating', 'desc')->get());
+                return  PostResource::collection(Post::orderBy('rating', 'desc')->get()->paginate(15));
             }
     }
 

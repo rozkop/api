@@ -14,7 +14,7 @@ class PostService
     public function showPost(string $id)
     {
         $post = Post::where('id', $id)->firstOrFail();
-        $comments = CommentResource::collection(Comment::where('post_id', $id)->get());
+        $comments = CommentResource::collection(Comment::where('post_id', $id)->get()->paginate(15));
 
         return BaseResource::collection(['Post' => new PostResource($post), 'Comments' => $comments]);
     }
