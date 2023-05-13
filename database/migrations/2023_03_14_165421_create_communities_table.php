@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->integer('rating')->default(0);
+            $table->string('rating')->default(0);
             $table->string('name')->unique();
             $table->longText('description');
             $table->string('slug');
