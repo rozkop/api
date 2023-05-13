@@ -27,6 +27,6 @@ class SocialiteController extends Controller
         ]);
         $token = $user->createToken('Rozkop')->plainTextToken;
 
-        return redirect('api/')->with($token);
+        return response()->json($user, 200, ['Access-Token' => $token]);
     }
 }

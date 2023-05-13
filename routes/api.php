@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Auth routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/login/{provider}/', [SocialiteController::class, 'redirect']);
+Route::get('/login/{provider}', [SocialiteController::class, 'redirect']);
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback']);
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
