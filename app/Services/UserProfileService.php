@@ -24,11 +24,11 @@ class UserProfileService
         $liked_communities = CommunityResource::collection(Community::whereReactedBy()->get());
 
         return BaseResource::make([
-            'User' => new UserResource($user),
-            'User posts' => $owned_posts,
-            'User communities' => $owned_communities,
-            'User liked posts' => $liked_posts,
-            'User liked communities' => $liked_communities,
+            'user' => new UserResource($user),
+            'user_posts' => $owned_posts,
+            'user_communities' => $owned_communities,
+            'user_liked_posts' => $liked_posts,
+            'user_liked_communities' => $liked_communities,
         ]);
     }
 
@@ -44,17 +44,17 @@ class UserProfileService
                     $user->save();
                     break;
                 case 'country':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->country = $inputValue;
                     $User->save();
                     break;
                 case 'gender':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->gender = $inputValue;
                     $User->save();
                     break;
                 case 'avatar':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->avatar = $inputValue;
                     $User->save();
                 default:

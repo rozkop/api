@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\CrossUsage\GetReactions;
 use App\Models\CrossUsage\HasUserReacted;
+use App\QueryBuilders\SearchQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,5 +49,14 @@ class Community extends Model implements ReactableInterface
     {
         return $community->slug = Str::slug($community->name);
     }
+    
+    public static function query(): SearchQuery
+    {
+        return parent::query();
+    }
 
+    public function newEloquentBuilder($query): SearchQuery
+    {
+        return new SearchQuery($query);
+    }
 }

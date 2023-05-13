@@ -10,7 +10,7 @@ use App\Models\Post;
 
 class CommunityService
 {
-    public function showCommunity(string $id, $sortField)
+    public function showCommunity(string $id, $sortField="")
     {
         $community = Community::where('id', $id)->firstOrFail();
         switch ($sortField) {
@@ -34,7 +34,7 @@ class CommunityService
         }
 
     }
-    public function storeCommunity(string $name, string $description): CommunityResource
+    public function storeCommunity(string $name, string $description, string $color): CommunityResource
     {
         $user_id = auth('sanctum')->id();
 
@@ -42,17 +42,19 @@ class CommunityService
             'name' => $name,
             'description' => $description,
             'user_id' => $user_id,
+            'color' => $color,
         ]);
 
         return CommunityResource::make($community);
     }
 
-    public function updateCommunity(string $name, string $description, string $id): CommunityResource
+    public function updateCommunity(string $name, string $description, string $color, string $id): CommunityResource
     {
         $community = Community::where('id', $id)->firstOrFail();
         $community->update([
             'name' => $name,
             'description' => $description,
+            'color' => $color,
             Community::slugger($community),
         ]);
 

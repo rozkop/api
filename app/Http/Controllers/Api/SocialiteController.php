@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\BaseResource;
 use App\Models\User;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
@@ -17,7 +17,6 @@ class SocialiteController extends Controller
     protected function callback($provider)
     {
         $socialUser = Socialite::driver($provider)->stateless()->user();
-        // dd($socialUser);
         $user = User::updateOrCreate([
             'provider_id' => $socialUser->id,
             'provider' => $provider,
@@ -26,8 +25,11 @@ class SocialiteController extends Controller
             'email' => $socialUser->email,
             'provider_token' => $socialUser->token,
         ]);
-        Auth::login($user);
+        $token = $user->createToken('Rozkop')->plainTextToken;
 
-        return redirect('/api');
+        return BaseResource::make([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
 }

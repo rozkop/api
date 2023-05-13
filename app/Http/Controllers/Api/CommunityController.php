@@ -13,7 +13,7 @@ class CommunityController extends Controller
 {
     public function index()
     {
-        return Community::select('id', 'name', 'slug')->get();
+        return Community::select('id', 'name', 'slug')->search()->get();
     }
 
     public function show(CommunityService $service, Community $community, $sortField = '')
@@ -22,14 +22,14 @@ class CommunityController extends Controller
     }
     public function store(CommunityRequest $request, CommunityService $service)
     {
-        return $service->storeCommunity($request->name, $request->description);
+        return $service->storeCommunity($request->name, $request->description, $request->color);
     }
 
     public function update(CommunityRequest $request, CommunityService $service, Community $community): CommunityResource
     {
         $this->authorize('update', $community);
 
-        return $service->updateCommunity($request->name, $request->description, $community->id);
+        return $service->updateCommunity($request->name, $request->description, $community->id, $request->color);
     }
 
     public function react(ReactionService $service, Community $community)

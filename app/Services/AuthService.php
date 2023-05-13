@@ -28,7 +28,7 @@ class AuthService
 
     public function loginUser(string $email, string $password)
     {
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $email)->firstOrFail();
 
         if (! $user || ! Hash::check($password, $user->password)) {
             return BaseResource::make(['error' => 'Invalid email or password!']);
