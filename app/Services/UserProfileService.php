@@ -25,10 +25,10 @@ class UserProfileService
 
         return BaseResource::make([
             'user' => new UserResource($user),
-            'user-posts' => $owned_posts,
-            'user-communities' => $owned_communities,
-            'user-liked-posts' => $liked_posts,
-            'user-liked-communities' => $liked_communities,
+            'user_posts' => $owned_posts,
+            'user_communities' => $owned_communities,
+            'user_liked_posts' => $liked_posts,
+            'user_liked_communities' => $liked_communities,
         ]);
     }
 
