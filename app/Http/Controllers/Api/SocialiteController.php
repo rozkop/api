@@ -25,8 +25,8 @@ class SocialiteController extends Controller
             'email' => $socialUser->email,
             'provider_token' => $socialUser->token,
         ]);
-        Auth::login($user);
+        $token = $user->createToken('Rozkop')->plainTextToken;
 
-        return redirect('/api/hot');
+        return response()->json($user, 200, ['Access-Token' => $token]);
     }
 }

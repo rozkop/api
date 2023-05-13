@@ -10,7 +10,7 @@ use App\Models\Post;
 
 class CommunityService
 {
-    public function showCommunity(string $id, $sortField)
+    public function showCommunity(string $id, $sortField="")
     {
         $community = Community::where('id', $id)->firstOrFail();
         switch ($sortField) {
