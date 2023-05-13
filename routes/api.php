@@ -23,12 +23,12 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'callback'
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed'])->name('verification.verify');
 
+
 // Public routes
+Route::get('/c', [CommunityController::class, 'index']);
 Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
     Route::get('/{sortField?}', [PostController::class, 'showPosts']);
     Route::get('/post/{post}', [PostController::class, 'show']);
-
-    Route::get('/c', [CommunityController::class, 'index']);
     Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
     Route::get('/c/{community:slug}/', [CommunityController::class, 'index']);
 })->scopeBindings();
