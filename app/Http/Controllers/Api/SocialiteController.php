@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\BaseResource;
 use App\Models\User;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
@@ -27,6 +27,9 @@ class SocialiteController extends Controller
         ]);
         $token = $user->createToken('Rozkop')->plainTextToken;
 
-        return response()->json($user, 200, ['Access-Token' => $token]);
+        return BaseResource::make([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
 }

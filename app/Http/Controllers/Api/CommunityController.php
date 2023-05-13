@@ -13,7 +13,7 @@ class CommunityController extends Controller
 {
     public function index()
     {
-        return Community::select('id', 'name', 'slug')->get();
+        return Community::select('id', 'name', 'slug')->search()->get();
     }
 
     public function show(CommunityService $service, Community $community, $sortField = '')
