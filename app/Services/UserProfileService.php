@@ -44,17 +44,17 @@ class UserProfileService
                     $user->save();
                     break;
                 case 'country':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->country = $inputValue;
                     $User->save();
                     break;
                 case 'gender':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->gender = $inputValue;
                     $User->save();
                     break;
                 case 'avatar':
-                    $User = User::where('user_id', $user_id)->first();
+                    $User = User::where('id', $user_id)->first();
                     $User->avatar = $inputValue;
                     $User->save();
                 default:
