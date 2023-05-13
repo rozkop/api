@@ -24,11 +24,11 @@ class UserProfileService
         $liked_communities = CommunityResource::collection(Community::whereReactedBy()->get());
 
         return BaseResource::make([
-            'User' => new UserResource($user),
-            'User posts' => $owned_posts,
-            'User communities' => $owned_communities,
-            'User liked posts' => $liked_posts,
-            'User liked communities' => $liked_communities,
+            'user' => new UserResource($user),
+            'user-posts' => $owned_posts,
+            'user-communities' => $owned_communities,
+            'user-liked-posts' => $liked_posts,
+            'user-liked-communities' => $liked_communities,
         ]);
     }
 
