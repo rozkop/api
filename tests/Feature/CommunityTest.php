@@ -22,6 +22,7 @@ class CommunityTest extends TestCase
         [
             'name' => 'TesterCommunity',
             'description' => 'TestDescription',
+            'color' => '#7e8efb',
         ]);
         $response->assertStatus(201);
 
@@ -41,8 +42,10 @@ class CommunityTest extends TestCase
         [
             'name' => 'Road roller!',
             'description' => 'Reeeeeeeeeeeeeee',
+            'color' => '#7e8efb',
         ]);
         
         $responce->assertStatus(200);
+        
     }
 }
