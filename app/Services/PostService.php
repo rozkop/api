@@ -41,7 +41,7 @@ class PostService
             'title' => $title,
             'text' => $text,
             Post::slugger($post),
-        ]);
+        ])->save();
 
         return PostResource::make($post);
     }
