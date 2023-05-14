@@ -51,9 +51,8 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
+            'driver' => env('MAIL_DRIVER', 'smtp'),
+                'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
         ],
 
         'postmark' => [
