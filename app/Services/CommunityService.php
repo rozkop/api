@@ -55,9 +55,8 @@ class CommunityService
             'name' => $name,
             'description' => $description,
             'color' => $color,
-            Community::slugger($community),
+            'slug' => $community->slug(),
         ]);
-        $community->save();
         return CommunityResource::make($community);
     }
 

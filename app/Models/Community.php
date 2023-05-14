@@ -45,9 +45,9 @@ class Community extends Model implements ReactableInterface
             $community->slug = Str::slug($community->name);
         });
     }
-    public static function slugger(Community $community)
+    public function slugger()
     {
-        return $community->slug = Str::slug($community->name);
+        return $this->slug = Str::slug($this->name);
     }
     
     public static function query(): SearchQuery

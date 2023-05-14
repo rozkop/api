@@ -40,9 +40,8 @@ class PostService
         $post->update([
             'title' => $title,
             'text' => $text,
-            Post::slugger($post),
+            'slug' => $post->slug(),
         ]);
-        $post->save();
         return PostResource::make($post);
     }
 
