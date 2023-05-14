@@ -29,7 +29,7 @@ class CommunityController extends Controller
     {
         $this->authorize('update', $community);
 
-        return $service->updateCommunity($request->name, $request->description, $community->id, $request->color);
+        return $service->updateCommunity($request->name, $request->description, $request->color, $community->id);
     }
 
     public function react(ReactionService $service, Community $community)
