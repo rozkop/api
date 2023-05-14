@@ -19,7 +19,7 @@ class CommunityResource extends JsonResource
             'created_at' => $this->created_at,
             'rating' => $this->rating,
             'user' => ['id' => $this->user->id, 'name' => $this->user->name],
-            'slug' => $this->slug,
+            'slug' => $this->slug(),
             'name' => $this->name,
             'color' => $this->color,
             'description' => $this->description,
