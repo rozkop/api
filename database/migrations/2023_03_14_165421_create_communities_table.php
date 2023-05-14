@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->longText('description');
             $table->string('slug');
-            $table->string('color')->nullable();
+            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
         });
