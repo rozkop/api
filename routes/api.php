@@ -30,7 +30,7 @@ Route::group(['middleware' => [OptionalAuthSanctum::class]], function () {
     Route::get('/{sortField?}', [PostController::class, 'showPosts']);
     Route::get('/post/{post}', [PostController::class, 'show']);
     Route::get('/c/{community:slug}/{sortField?}', [CommunityController::class, 'show']);
-})->scopeBindings();
+});
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // Auth route
@@ -66,4 +66,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('post/admin/reported', [PostController::class, 'showReported']);
     });
 
-})->scopeBindings();
+});
