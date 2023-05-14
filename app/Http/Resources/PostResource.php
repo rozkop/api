@@ -16,7 +16,7 @@ class PostResource extends JsonResource
             'community' => new CommunityResource($this->community),
             'count_comments' => CommentResource::collection($this->comments)->count(),
             'created_at' => $this->created_at,
-            'slug' => $this->slug(),
+            'slug' => $this->slug,
             'title' => $this->title,
             'text' => $this->text,
             'is_user_reacting' => $this->isUserReacting(),

@@ -35,9 +35,9 @@ class Post extends Model implements ReactableInterface
         });
     }
 
-    public function slugger()
+    public static function slugger(Post $post)
     {
-        return $this->slug = Str::slug($this->title);
+        return $post->slug = Str::slug($post->title);
     }
 
     public function community(): BelongsTo
