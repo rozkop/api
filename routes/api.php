@@ -8,11 +8,12 @@ use App\Http\Controllers\Api\SocialiteController;
 use App\Http\Controllers\Api\UserProfileController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Middleware\OptionalAuthSanctum;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return new UserResource($request->user());
 });
 
 // Auth routes
