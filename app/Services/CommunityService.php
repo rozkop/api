@@ -44,7 +44,7 @@ class CommunityService
             'user_id' => $user_id,
             'color' => $color,
         ]);
-
+        $community->save();
         return CommunityResource::make($community);
     }
 
@@ -57,7 +57,7 @@ class CommunityService
             'color' => $color,
             Community::slugger($community),
         ]);
-
+        $community->save();
         return CommunityResource::make($community);
     }
 

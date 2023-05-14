@@ -30,7 +30,7 @@ class PostService
             'user_id' => $user_id,
 
         ]);
-
+        $post->save();
         return PostResource::make($post);
     }
 
@@ -42,7 +42,7 @@ class PostService
             'text' => $text,
             Post::slugger($post),
         ]);
-
+        $post->save();
         return PostResource::make($post);
     }
 
