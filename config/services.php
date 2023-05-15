@@ -14,13 +14,6 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => env('sandbox6ee3052859384ea1be3b2380de256703.mailgun.org'),
-        'secret' => env('6b161b0a-ec3fc522'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
-        'scheme' => 'https',
-    ],
-
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

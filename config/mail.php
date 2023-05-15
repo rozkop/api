@@ -49,12 +49,6 @@ return [
             'transport' => 'ses',
         ],
 
-        'mailgun' => [
-            'transport' => 'mailgun',
-            'driver' => env('MAIL_DRIVER', 'smtp'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-        ],
-
         'postmark' => [
             'transport' => 'postmark',
             // 'client' => [
