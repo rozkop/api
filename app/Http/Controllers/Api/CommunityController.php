@@ -20,6 +20,7 @@ class CommunityController extends Controller
     {
         return $service->showCommunity($community->id, $sortField);
     }
+
     public function store(CommunityRequest $request, CommunityService $service)
     {
         return $service->storeCommunity($request->name, $request->description, $request->color);

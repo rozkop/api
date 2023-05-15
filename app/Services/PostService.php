@@ -42,7 +42,7 @@ class PostService
             'text' => $text,
             Post::slugger($post),
         ]);
-        
+
         return PostResource::make($post);
     }
 

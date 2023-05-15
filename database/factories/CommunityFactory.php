@@ -21,7 +21,7 @@ class CommunityFactory extends Factory
             'name' => $this->faker->unique()->text(10),
             'description' => $this->faker->sentence(20),
             'user_id' => User::factory(),
-            'color'=> '#878787',
+            'color' => '#878787',
         ];
     }
 }

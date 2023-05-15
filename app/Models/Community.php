@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 use Qirolab\Laravel\Reactions\Contracts\ReactableInterface;
 use Qirolab\Laravel\Reactions\Traits\Reactable;
 
-
 class Community extends Model implements ReactableInterface
 {
     use HasFactory, SoftDeletes, Reactable, GetReactions, HasUserReacted;
@@ -45,11 +44,12 @@ class Community extends Model implements ReactableInterface
             $community->slug = Str::slug($community->name);
         });
     }
+
     public static function slugger(Community $community)
     {
         return $community->slug = Str::slug($community->name);
     }
-    
+
     public static function query(): SearchQuery
     {
         return parent::query();
